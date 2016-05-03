@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>pagepiling test</title>
+
+        <link rel="stylesheet" href="vendor/pagepiling.js/jquery.pagepiling.css" media="screen" title="no title" charset="utf-8">
+
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="vendor/pagepiling.js/jquery.pagepiling.js"></script>
+
+        <style>
+            .section {
+                text-align: center;
+                font: 50px "Microsoft Yahei";
+                color: #fff;
+            }
+
+            #menu {
+                position: fixed;
+                left: 0;
+                top: 0;
+                z-index: 10;
+                margin: 0;
+                padding: 0;
+                font-size: 0;
+                list-style-type: none;
+            }
+            #menu li {
+                display: inline-block;
+                margin: 10px 0 0 10px;
+                font: 14px "Microsoft Yahei";
+            }
+            #menu a {
+                display: inline-block;
+                padding: 10px;
+                color: #333;
+                text-decoration: none;
+                background-color: #fff;
+                background-color: rgba(255, 255, 255, .5);
+            }
+            #menu .active a {
+                color: #fff;
+                background-color: #000;
+                background-color: rgba(0, 0, 0, .5);
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <ul id="menu">
+            <li data-menuanchor="page1" class="active">
+                <a href="#page1">第一屏</a>
+            </li>
+            <li data-menuanchor="page2">
+                <a href="#page2">第二屏</a>
+            </li>
+            <li data-menuanchor="page3">
+                <a href="#page3">第三屏</a>
+            </li>
+            <li data-menuanchor="page4">
+                <a href="#page4">第四屏</a>
+            </li>
+        </ul>
+
+        <div id="pagepiling">
+            <div class="section">Test One</div>
+            <div class="section">Test Sec</div>
+            <div class="section">Test Third</div>
+            <div class="section">Test Forth</div>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#pagepiling').pagepiling({
+                    sectionsColor: [
+                        '#22C3AA', '#89C3FD', '#FDBD89', 'rgb(51, 51, 51)'
+                    ],
+                    anchors: ['page1', 'page2', 'page3', 'page4'],
+                    menu: '#menu'
+
+                });
+            });
+
+        </script>
+    </body>
+</html>

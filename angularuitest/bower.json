@@ -1,0 +1,28 @@
+{
+  "name": "bowertest",
+  "authors": [
+    "zhuyunxiang <zhuyunxiang@snail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.8.3",
+    "angular": "~1.4.8",
+    "angular-bootstrap": "~1.0",
+    "bootstrap":"~3.3.6",
+    "angular-animate": "~1.5.0",
+    "angular-touch": "~1.5.0",
+    "jquery-mobile": "~1.4.5"
+  }
+}

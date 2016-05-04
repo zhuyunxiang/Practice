@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+    <head>
+        <meta charset="utf-8">
+        <title>Utils Test</title>
+
+        <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+        <script type="text/javascript" src="../vendor/angular/angular.js"></script>
+        <script type="text/javascript" src="../angular-utils-table.min.js"></script>
+
+    </head>
+    <body ng-controller="myController">
+        Test Panel.
+        <div util-table attrbutes="attrbutes" dataSource="dataSource" options="options"></div>
+
+        <script type="text/javascript">
+            var myApp = angular.module('myApp', ['Utils-table', 'Controllers']);
+            var Controllers = angular.module('Controllers', []);
+
+            Controllers.controller('myController', [
+                '$scope',
+                function($scope) {
+                    $scope.attrbutes = [
+                        {
+                            key: 'name',
+                            title: '姓名'
+                        }, {
+                            key: 'work_no',
+                            title: '工号'
+                        }, {
+                            key: 'T',
+                            title: 'T级'
+                        }
+                    ];
+                    $scope.dataSource = [
+                        {
+                            name: "zhuyunxiang",
+                            work_no: "WN5730",
+                            T: "T2.1"
+                        }, {
+                            name: "zhuyunxiang",
+                            work_no: "WN5730",
+                            T: "T2.2"
+                        }
+                    ];
+
+                    $scope.options = [
+                        {
+                            type: 'btn',
+                            title: '修改',
+                            class: 'btn-warning',
+                            callback: function(data) {
+                                alert("修改");
+                            }
+                        }, {
+                            type: 'btn',
+                            title: '删除',
+                            class: 'btn-primary',
+                            callback: function(data) {
+                                console.log(data);
+                                // alert('123');
+                            }
+                        }
+                    ];
+                }
+            ]);
+        </script>
+    </body>
+</html>

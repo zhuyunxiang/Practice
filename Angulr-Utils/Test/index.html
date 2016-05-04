@@ -46,16 +46,17 @@
 
                     $scope.options = [
                         {
-                            type: 'btn',
+                            isBtn: true,
                             title: '修改',
-                            class: 'btn-warning',
+                            class: 'btn-warning btn btn-xs',
                             callback: function(data) {
                                 alert("修改");
                             }
                         }, {
-                            type: 'btn',
+                            // isBtn: true,
+                            isSelect: true,
                             title: '删除',
-                            class: 'btn-primary',
+                            class: 'btn-primary btn btn-xs',
                             callback: function(data) {
                                 console.log(data);
                                 // alert('123');

@@ -9,7 +9,7 @@ UtilsTableDirectives.directive('utilTable', [function() {
     return {
         restrict: 'ECA',
         transclude: true,
-        template: '<table class="table table-bordered"><tr><th ng-repeat="titleItem in attrbutes" ng-show="attrbutes&&attrbutes.length">{{titleItem.title}}</th><th ng-show="options&&options.length">操作</th></tr><tr ng-repeat="rowData in dataSource|limitTo:limitLength"><td ng-repeat="attrInfo in rowData|filterAttributes:attrbutes">{{attrInfo}}</td><td ng-show="options&&options.length"><span ng-repeat="oItem in options" util-table-options oitem="oItem" optiondata="rowData"></span></td></tr></table>',
+        template: '<table class="table table-bordered"><tr><th ng-repeat="titleItem in attrbutes" ng-show="attrbutes&&attrbutes.length">{{titleItem.title}}</th><th ng-show="options&&options.length">操作</th></tr><tr ng-repeat="rowData in dataSource|limitTo:limitLength"><td ng-repeat="attrInfo in rowData|filterAttributes:attrbutes">{{attrInfo}}</td><td ng-show="options&&options.length"><span ng-repeat="oItem in options" util-table-btn-options oitem="oItem" optiondata="rowData"></span></td></tr></table>',
         replace: true,
         scope: {
             attrbutes: "=attrbutes",
@@ -17,26 +17,38 @@ UtilsTableDirectives.directive('utilTable', [function() {
             options: "=options",
         },
         link: function($scope, $element, $attrs) {
-
+            // 操作
         }
     };
 }]);
 
-UtilsTableDirectives.directive('utilTableOptions', [function() {
+// 表中的操作指令
+UtilsTableDirectives.directive('utilTableBtnOptions', [function() {
     return {
         restrict: 'ECA',
         transclude: true,
-        template: '<button class="btn btn-default {{oitem.class}}" style="margin-right:10px;" ng-style="oitem.style">{{oitem.title}}</button>',
+        template: '<span><button class="btn btn-default {{oitem.class}}" style="margin-right:10px;" ng-style="oitem.style" ng-show="oitem.isBtn">{{oitem.title}}</button><select ng-show="oitem.isSelect"><option>无</option></select></span>',
         replace: true,
         scope: {
             oitem: "=oitem",
             optiondata: "=optiondata"
         },
         link: function($scope, $element, $attrs) {
-            $element.bind('click', function(a) {
-                var callback = $scope.oitem.callback || function() {};
-                callback($scope.optiondata, $scope.oitem);
-            });
+            console.log($scope.oitem);
+
+            if($scope.oitem.isBtn) {
+                $element.bind('click', function(a) {
+                    var callback = $scope.oitem.callback || function() {};
+                    callback($scope.optiondata, $scope.oitem);
+                });
+            }
+            if($scope.oitem.isSelect) {
+                $element.bind('change', function(a) {
+                    var callback = $scope.oitem.callback || function() {};
+                    callback($scope.optiondata, $scope.oitem);
+                });
+            }
+
 
         }
     };

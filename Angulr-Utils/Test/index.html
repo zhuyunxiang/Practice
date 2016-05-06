@@ -11,7 +11,7 @@
     </head>
     <body ng-controller="myController">
         Test Panel.
-        <div util-table attrbutes="attrbutes" dataSource="dataSource" options="options"></div>
+        <div util-table dataSource="dataSource" config="config"></div>
 
         <script type="text/javascript">
             var myApp = angular.module('myApp', ['Utils-table', 'Controllers']);
@@ -20,18 +20,46 @@
             Controllers.controller('myController', [
                 '$scope',
                 function($scope) {
-                    $scope.attrbutes = [
-                        {
-                            key: 'name',
-                            title: '姓名'
-                        }, {
-                            key: 'work_no',
-                            title: '工号'
-                        }, {
-                            key: 'T',
-                            title: 'T级'
-                        }
-                    ];
+                    $scope.config = {
+                        attr: [
+                            {
+                                key: 'name',
+                                title: '姓名'
+                            }, {
+                                key: 'work_no',
+                                title: '工号'
+                            }, {
+                                key: 'T',
+                                title: 'T级'
+                            }
+                        ],
+                        opt: [
+                            {
+                                isBtn: true,
+                                title: '修改',
+                                class: 'btn-warning btn btn-xs',
+                                style: {'margin-right':'10px'},
+                                callback: function(data) {
+                                    alert("修改");
+                                }
+                            }, {
+                                // isBtn: true,
+                                isSelect: true,
+                                title: '删除',
+                                class: '',
+                                selectOptions: [{name:'技术中心', value:'杨利平'}],
+                                callback: function(data, selectInfo) {
+                                    console.log(selectInfo);
+                                    // alert('123');
+                                    console.log(data);
+                                }
+                            }
+                        ]
+                    };
+
+                    // $scope.config.searchKeyword = 'zhuyunxiang';
+
+                    // $scope.config.searchKeyword = {name:"zhoushuqing"};
                     $scope.dataSource = [
                         {
                             name: "zhuyunxiang",
@@ -41,26 +69,10 @@
                             name: "zhuyunxiang",
                             work_no: "WN5730",
                             T: "T2.2"
-                        }
-                    ];
-
-                    $scope.options = [
-                        {
-                            isBtn: true,
-                            title: '修改',
-                            class: 'btn-warning btn btn-xs',
-                            callback: function(data) {
-                                alert("修改");
-                            }
                         }, {
-                            // isBtn: true,
-                            isSelect: true,
-                            title: '删除',
-                            class: 'btn-primary btn btn-xs',
-                            callback: function(data) {
-                                console.log(data);
-                                // alert('123');
-                            }
+                            name: "zhoushuqing",
+                            work_no: "WN1287",
+                            T: "T5.3"
                         }
                     ];
                 }

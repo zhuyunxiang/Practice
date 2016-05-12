@@ -16,8 +16,8 @@ UtilsTableDirectives.directive('utilTable', [function() {
             dataSource: "=datasource",
         },
         link: function($scope, $element, $attrs) {
-            $scope.sortPredicate = $scope.config.order.colum||'name';
-            $scope.reverseOrder = $scope.config.order.type||false;
+            $scope.sortPredicate = ($scope.config.order && $scope.config.order.colum)||'name';
+            $scope.reverseOrder = ($scope.config.order && $scope.config.order.type)||false;
 
             $scope.a = 'glyphicon-sort-by-attributes';
             $scope.b = 'glyphicon-sort-by-attributes-alt';

@@ -9,15 +9,15 @@ UtilsTableDirectives.directive('utilTable', [function() {
     return {
         restrict: 'ECA',
         transclude: true,
-        template: '<table class="table table-bordered"><tr><th ng-repeat="titleItem in config.attr" ng-show="config.attr&&config.attr.length" <span ng-click="setOrderInfo(titleItem)" style="cursor:pointer">{{titleItem.title}}<i class="glyphicon" ng-show="titleItem.key==sortPredicate" ng-class="{true:b, false:a}[reverseOrder]"></i></span></th><th ng-show="config.opt&&config.opt.length">操作</th></tr><tr ng-repeat="rowData in dataSource|limitTo:config.limitLength|filter:config.searchKeyword|autoSortBy:sortPredicate:reverseOrder"><td ng-repeat="attrInfo in rowData|filterAttributes:config.attr">{{attrInfo}}</td><td ng-show="config.opt&&config.opt.length"><span ng-repeat="oItem in config.opt" util-table-btn-options oitem="oItem" optiondata="rowData"></span></td></tr></table>',
+        template: '<table class="table table-bordered"><tr><th ng-show="config.showIndex">序号</th><th ng-repeat="titleItem in config.attr" ng-show="config.attr&&config.attr.length" <span ng-click="setOrderInfo(titleItem)" style="cursor:pointer">{{titleItem.title}}<i class="glyphicon" ng-show="titleItem.key==sortPredicate" ng-class="{true:b, false:a}[reverseOrder]"></i></span></th><th ng-show="config.opt&&config.opt.length">操作</th></tr><tr ng-repeat="rowData in dataSource|limitTo:config.limitLength|filter:config.searchKeyword|autoSortBy:sortPredicate:reverseOrder"><td ng-show="config.showIndex">{{$index+1}}</td><td ng-repeat="attrInfo in rowData|filterAttributes:config.attr" title="{{attrInfo}}">{{attrInfo}}</td><td ng-show="config.opt&&config.opt.length"><span ng-repeat="oItem in config.opt" util-table-btn-options oitem="oItem" optiondata="rowData"></span></td></tr></table>',
         replace: true,
         scope: {
             config: "=config",
             dataSource: "=datasource",
         },
         link: function($scope, $element, $attrs) {
-            $scope.sortPredicate = ($scope.config.order && $scope.config.order.colum)||'name';
-            $scope.reverseOrder = ($scope.config.order && $scope.config.order.type)||false;
+            $scope.sortPredicate = ($scope.config && $scope.config.order && $scope.config.order.colum)||'name';
+            $scope.reverseOrder = ($scope.config && $scope.config.order && $scope.config.order.type)||false;
 
             $scope.a = 'glyphicon-sort-by-attributes';
             $scope.b = 'glyphicon-sort-by-attributes-alt';
@@ -35,25 +35,38 @@ UtilsTableDirectives.directive('utilTableBtnOptions', [function() {
     return {
         restrict: 'ECA',
         transclude: true,
-        template: '<span><button class="{{oitem.class}}"ng-style="oitem.style" ng-show="oitem.isBtn">{{oitem.title}}</button><select ng-show="oitem.isSelect" ng-model="selectModel" class="{{oitem.class}}"ng-style="oitem.style" ng-options="k.value as k.name for k in oitem.selectOptions"><option value="">无</option></select></span>',
+        template: '<div style="display:inline-block;"><div class="dropdown" class="{{oitem.class}}"ng-style="oitem.style" ng-show="oitem.isDropDown"> <button class="btn btn-default dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{oitem.title}}<span class="caret"></span> </button> <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"> <li ng-repeat="(dpk,dpv) in oitem.dropdownList" ng-hide="dpv.isHide||dpv.setHide(optiondata,oitem)"><a href="#" ng-click="dpv.callback(optiondata,oitem)">{{dpv.name}}</a></li></ul> </div><button ng-disabled="isDisabled" class="{{oitem.class}}"ng-style="oitem.style" ng-show="oitem.isBtn&&isShow">{{oitem.title}}</button><select ng-show="oitem.isSelect&&isShow" ng-model="optiondata[oitem.attrName]" class="{{oitem.class}}"ng-style="oitem.style" ng-options="k.value as k.name for k in oitem.selectOptions"><option value="">请选择</option></select></div>',
         replace: true,
         scope: {
             oitem: "=oitem",
             optiondata: "=optiondata",
         },
         link: function($scope, $element, $attrs) {
-            // 按钮事件回调
-            if ($scope.oitem.isBtn) {
+            // 禁用条件
+            if (typeof $scope.oitem.isDisabled == "function") {
+                $scope.isDisabled = $scope.oitem.isDisabled($scope.optiondata, $scope.oitem);
+            } else {
+                $scope.isDisabled = ($scope.oitem.isDisabled == undefined)?false:$scope.oitem.isDisabled;
+            }
+            // 显示控制条件
+            if (typeof $scope.oitem.isHide == "function") {
+                $scope.isShow = !$scope.oitem.isHide($scope.optiondata, $scope.oitem);
+            } else {
+                $scope.isShow = ($scope.oitem.isHide == undefined)?true:(!$scope.oitem.isHide);
+            }
+
+            // 按钮事件回调（没有被禁止才能有权限）
+            if ($scope.oitem.isBtn && !$scope.isDisabled) {
                 $element.bind('click', function(a) {
                     var callback = $scope.oitem.callback || function() {};
                     callback($scope.optiondata, $scope.oitem);
                 });
             }
-            // Select事件回调
-            if ($scope.oitem.isSelect) {
+            // Select事件回调（没有被禁止才能有权限）
+            if ($scope.oitem.isSelect && !$scope.isDisabled) {
                 $element.bind('change', function(a) {
                     var callback = $scope.oitem.callback || function() {};
-                    callback($scope.optiondata, $scope.selectModel, $scope.oitem);
+                    callback($scope.optiondata, $scope.optiondata[$scope.oitem.attrName], $scope.oitem);
                 });
             }
         }
@@ -77,6 +90,7 @@ UtilsTableFilters.filter('filterAttributes', [function() {
     };
 }]);
 
+// 自然排序Filter
 UtilsTableFilters.filter('autoSortBy', ['$filter', '$parse', function($filter, $parse) {
     return function(array, sortPredicate, reverseOrder) {
         if (!(array instanceof Array)) return array;

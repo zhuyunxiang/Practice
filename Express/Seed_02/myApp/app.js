@@ -10,6 +10,12 @@ var users = require('./routes/users');
 
 var app = express();
 
+var oauthserver = require('express-oauth-server');
+var auth = require('./auth');
+var oauth = new oauthserver({ model: auth });
+
+app.use(oauth.authenticate());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -23,6 +29,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', function (req, res) {
+  res.send('Hello World');
+})
 
 app.use('/', routes);
 app.use('/users', users);

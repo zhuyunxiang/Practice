@@ -3,7 +3,7 @@ module.exports = {
         host: '127.0.0.1',
         user: 'root',
         passworld: '',
-        database: 'new_techcenter',
+        database: 'sharefriend',
         port: 3306
     }
 };

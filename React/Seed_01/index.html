@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<!-- <script src="vendor/react/react.js"></script> -->
+	<!-- <script src="vendor/jsx-requirejs-plugin/js/JSXTransformer.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+</head>
+<body>
+	<div id="container"></div>
+
+	<script type="text/jsx">
+		var TestClickComponent = React.createClass({
+			render: function () {
+				return (
+				<div>
+					<button>显示|隐藏</button><span>测试点击</span>
+				</div>
+				);
+			}
+		});
+
+		
+
+		React.render(<TestClickComponent/>, document.getElementById('container'));
+	</script>
+</body>
+</html>

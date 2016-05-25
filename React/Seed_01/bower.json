@@ -1,0 +1,27 @@
+{
+  "name": "Angulr-Utils",
+  "authors": [
+    "zhuyunxiang <zhuyunxiang@snail.com>"
+  ],
+  "description": "just a test demo.",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~15.1.0",
+    "jsx-requirejs-plugin": "~0.6.2"
+  },
+  "devDependencies": {
+    "jsx-requirejs-plugin": "~0.6.2"
+  }
+}

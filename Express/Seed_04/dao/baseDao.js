@@ -20,6 +20,10 @@ var jsonWrite = function(res, ret) {
 var query = function(sql, params, callback) {
     pool.getConnection(function(err, connection) {
         // 建立连接，向表中插入值
+        if(!connection) {
+            console.log("DB config failed...");
+            return false
+        };
         connection.query(sql, params, function(err, result) {
             callback(result, err);
             // 释放连接

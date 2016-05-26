@@ -49,7 +49,7 @@ app.post('/wechat', function (req, res, next) {
 });
 
 
-
+confParams.addConfig('a', 'aa');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

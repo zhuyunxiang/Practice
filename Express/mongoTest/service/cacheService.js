@@ -36,7 +36,8 @@ var get = function(key) {
 
             // 如果已经过期
         } else if (expire && curTime - insertTime > expire) {
-            delete cache[key];
+            if(_cache&&_cache[key])
+                delete _cache[key];
             return null
         }
     } else {

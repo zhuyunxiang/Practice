@@ -12,9 +12,12 @@
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "jade": "~1.11.0",
+    "jssha": "^1.5.0",
     "mongoose": "^4.4.19",
     "morgan": "~1.6.1",
     "oauth2-server": "^2.4.1",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "wechat": "^2.0.3",
+    "wechat-oauth": "^1.1.1"
   }
 }

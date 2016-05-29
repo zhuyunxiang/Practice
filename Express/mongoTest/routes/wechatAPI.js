@@ -52,4 +52,21 @@ router.use('/getTickets', function(req, res, next) {
     });
 });
 
+router.use('/getAuthURL', function(req, res, next) {
+    var url = wechatActions.getAuthURL(req.body.url);
+    res.json({url:url});
+});
+
+router.use('/getUserInfo', function(req, res, next) {
+    wechatActions.getUserByCode(req.body.code, function (err, result) {
+        res.json(result);
+    });
+});
+
+router.use('/redirect', function(req, res, next) {
+    console.log(req.query.url);
+    var url = wechatActions.getAuthURL(req.query.url);
+    res.redirect(url);
+});
+
 module.exports = router;

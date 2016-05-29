@@ -20,6 +20,11 @@ var getJSToken = function(callback) {
     client.request(url, args, callback);
 };
 
+// 获取user
+var getUserByCode = function(code, callback) {
+    client.getUserByCode(code, callback);
+};
+
 // 根据Token获取Ticket
 var getJSTicketByToken = function(access_token, callback) {
     var url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket';
@@ -67,7 +72,13 @@ var getJSTicketWithURL = function (urlPath, callback) {
     });
 }
 
+var getAuthURL = function (url) {
+    return client.getAuthorizeURL(url, 'STATE', 'snsapi_userinfo');
+}
+
 module.exports.getJSToken = getJSToken;
 module.exports.getJSTicketByToken = getJSTicketByToken;
 module.exports.getJSTicket = getJSTicket;
 module.exports.getJSTicketWithURL = getJSTicketWithURL;
+module.exports.getAuthURL = getAuthURL;
+module.exports.getUserByCode = getUserByCode;

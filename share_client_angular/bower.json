@@ -1,0 +1,28 @@
+{
+  "name": "Angulr-Utils",
+  "authors": [
+    "zhuyunxiang <zhuyunxiang@snail.com>"
+  ],
+  "description": "just a test demo.",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.5.0",
+    "jquery": "~1.9.1",
+    "bootstrap": "~3.3.6",
+    "oclazyload": "~1.0.8",
+    "angular-ui": "^0.4.0",
+    "angular-ui-router": "ui-router#^0.3.0"
+  }
+}

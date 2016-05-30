@@ -13,20 +13,23 @@ router.oauth = oauthserver({
   debug: true
 });
 
-router.all('/oauth/token', router.oauth.grant());
+// router.all('/oauth/token', router.oauth.grant());
+// router.oauth.authorise(),
 
 /* GET home page. */
-router.get('/',router.oauth.authorise(), function(req, res, next) {
+router.get('/', function(req, res, next) {
 
     res.render('index', {
         title: 'Express'
     });
+    next();
 });
 
 router.get('/get', function(req, res, next) {
     res.render('index', {
         title: 'Express'
     });
+    next();
 });
 
 module.exports = router;

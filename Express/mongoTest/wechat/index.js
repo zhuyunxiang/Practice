@@ -79,10 +79,21 @@ var getMediaByToken = function(access_token, serverId, callback) {
     client.request(url, args, callback);
 };
 
+// 根据ServerID获取图片
 var getMediaById = function (serverId, callback) {
     getCommonToken(function (err, result) {
         if (result) {
             getMediaByToken(result, serverId, callback);
+        }
+    });
+}
+
+// 获取图片地址
+var getMediaURL = function (serverId, callback) {
+    getCommonToken(function (err, result) {
+        if (result) {
+            var url = 'http://file.api.weixin.qq.com/cgi-bin/media/get?access_token='+result+'&media_id='+serverId;
+            callback(err, url);
         }
     });
 }
@@ -132,3 +143,4 @@ module.exports.getAuthURL = getAuthURL;
 module.exports.getUserByCode = getUserByCode;
 module.exports.getCommonToken = getCommonToken;
 module.exports.getMediaById = getMediaById;
+module.exports.getMediaURL = getMediaURL;

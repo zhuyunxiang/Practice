@@ -63,11 +63,17 @@ router.use('/getUserInfo', function(req, res, next) {
     });
 });
 
+router.use('/getImgURL', function(req, res, next) {
+    wechatActions.getMediaURL(req.body.serverId, function (err , result) {
+        res.json({'url':result});
+    });
+});
+
 router.use('/getImgById', function(req, res, next) {
     wechatActions.getMediaById(req.body.serverId, function (err , result) {
         console.log(err);
         console.log(result,'result');
-        
+
     });
     res.json({'a':req.body.serverId});
 });

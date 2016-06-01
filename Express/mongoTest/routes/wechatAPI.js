@@ -3,7 +3,7 @@ var wechat = require('wechat');
 var router = express.Router();
 var confParams = require('../conf');
 var wechatActions = require('../wechat');
-
+var fs = require("fs");
 var wechatClient = {
     token: confParams.token,
     appid: confParams.appid,
@@ -50,6 +50,33 @@ router.use('/getTickets', function(req, res, next) {
     wechatActions.getJSTicketWithURL(req.body.url, function(err, ticketResult) {
         res.json(ticketResult);
     });
+});
+
+router.use('/getAuthURL', function(req, res, next) {
+    var url = wechatActions.getAuthURL(req.body.url);
+    res.json({url:url});
+});
+
+router.use('/getUserInfo', function(req, res, next) {
+    wechatActions.getUserByCode(req.body.code, function (err, result) {
+        res.json(result);
+    });
+});
+
+router.use('/getImgById', function(req, res, next) {
+    wechatActions.getMediaById(req.body.serverId, function (err , result) {
+        console.log(err);
+        console.log(result,'result');
+        
+    });
+    res.json({'a':req.body.serverId});
+});
+
+// 跳转
+router.use('/redirect', function(req, res, next) {
+    console.log(req.query.url);
+    var url = wechatActions.getAuthURL(req.query.url);
+    res.redirect(url);
 });
 
 module.exports = router;

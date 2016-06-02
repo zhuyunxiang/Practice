@@ -3,6 +3,7 @@ var wechat = require('wechat');
 var router = express.Router();
 var confParams = require('../conf');
 var wechatActions = require('../wechat');
+var userService = require('../service/userService');
 
 var wechatClient = {
     token: confParams.token,
@@ -57,12 +58,37 @@ router.use('/getAuthURL', function(req, res, next) {
     res.json({url:url});
 });
 
+router.use('/getAccessToken', function(req, res, next) {
+    wechatActions.getCommonToken(function (err, result) {
+        res.json({token:result});
+    });
+});
+
 router.use('/getUserInfo', function(req, res, next) {
     wechatActions.getUserByCode(req.body.code, function (err, result) {
+        userService.add(result, function(err, result) {
+            console.log(result);
+        });
         res.json(result);
     });
 });
 
+router.use('/getImgURL', function(req, res, next) {
+    wechatActions.getMediaURL(req.body.serverId, function (err , result) {
+        res.json({'url':result});
+    });
+});
+
+router.use('/getImgById', function(req, res, next) {
+    wechatActions.getMediaById(req.body.serverId, function (err , result) {
+        console.log(err);
+        console.log(result,'result');
+
+    });
+    res.json({'a':req.body.serverId});
+});
+
+// 跳转
 router.use('/redirect', function(req, res, next) {
     console.log(req.query.url);
     var url = wechatActions.getAuthURL(req.query.url);

@@ -1,14 +1,20 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/auth');
+mongoose.connect('mongodb://localhost/share');
 
 var userSchema = new mongoose.Schema({
+    openid: String,
+    nickname: String,
+    sex: String,
+    language: String,
+    city: String,
+    province: String,
+    country: String,
+    headimgurl: String,
     username: String,
     password: String,
     email: String,
     head: String,
-    open_id: String,
-    headimgurl: String
 }, {
     collection: 'users'
 });
@@ -16,23 +22,15 @@ var userSchema = new mongoose.Schema({
 var userModel = mongoose.model('User', userSchema);
 
 function User(user) {
-    this.username = user.username;
-    this.password = user.password;
-    this.email = user.email;
+    this.user = user;
 };
 
 User.prototype.save = function(callback) {
-    var md5 = crypto.createHash('md5'),
-        email_MD5 = md5.update(this.email.toLowerCase()).digest('hex'),
-        head = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=48";
-    var user = {
-        username: this.username,
-        password: this.password,
-        email: this.email,
-        head: head
-    };
+    // var md5 = crypto.createHash('md5'),
+    //     email_MD5 = md5.update(this.email.toLowerCase()).digest('hex'),
+    //     head = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=48";
 
-    var newUser = new userModel(user);
+    var newUser = new userModel(this.user);
 
     newUser.save(function(err, user) {
         if (err) {
@@ -42,10 +40,17 @@ User.prototype.save = function(callback) {
     });
 };
 
-User.getByName = function(name, callback) {
-    userModel.findOne({
-        username: name
-    }, function(err, user) {
+User.getOne = function(params, callback) {
+    userModel.findOne(params, function(err, user) {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, user);
+    });
+};
+
+User.get = function(params, callback) {
+    userModel.find(params, function(err, user) {
         if (err) {
             return callback(err);
         }

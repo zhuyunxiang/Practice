@@ -10,18 +10,12 @@ router.get('/', function(req, res, next) {
 
 /* GET users listing. */
 router.use('/add', function(req, res, next) {
-    // userService.add({
-    //     username: 'zhuyunxiang',
-    //     password: 'zyx920826',
-    //     email: 'zhuyunxiang.com',
-    // }, function(err, res) {
     
-    // });
-    userService.getByName('zhuyunxiang', function (err, result) {
+    userService.get({}, function (err, result) {
         console.log(result);
+        res.json(result);
     });
 
-    res.send('respond with a resource');
 });
 
 module.exports = router;

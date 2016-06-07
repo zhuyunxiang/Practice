@@ -16,9 +16,13 @@ router.post('/save', function(req, res, next) {
 
 router.use('/get', function(req, res, next) {
 	var condition = req.body;
-	if (condition.type == 'neq') {
+	if (condition && condition.type == 'neq') {
 		condition = {openid: {'$ne': condition.openid}}
 	}
+	if (req.body && req.body.limitNum) {
+		condition.limitNum = req.body.limitNum;
+	}
+
 	materialService.get(condition, function (err, result) {
 	    res.json(result);
 	});

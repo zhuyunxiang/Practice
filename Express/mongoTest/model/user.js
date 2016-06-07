@@ -20,11 +20,12 @@ var userSchema = new mongoose.Schema({
 });
 
 var userModel = mongoose.model('User', userSchema);
-
+// 构造方法
 function User(user) {
     this.user = user;
 };
 
+// 保存用户信息
 User.prototype.save = function(callback) {
     // var md5 = crypto.createHash('md5'),
     //     email_MD5 = md5.update(this.email.toLowerCase()).digest('hex'),
@@ -40,6 +41,7 @@ User.prototype.save = function(callback) {
     });
 };
 
+// 获取单个人信息
 User.getOne = function(params, callback) {
     userModel.findOne(params, function(err, user) {
         if (err) {
@@ -49,6 +51,7 @@ User.getOne = function(params, callback) {
     });
 };
 
+// 获取
 User.get = function(params, callback) {
     userModel.find(params, function(err, user) {
         if (err) {

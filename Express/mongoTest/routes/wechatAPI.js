@@ -39,8 +39,8 @@ router.use('/auth', wechat(wechatClient, function(req, res, next) {
     } else {
         // 回复高富帅(图文回复)
         res.reply([{
-            title: '你来我家接我吧',
-            description: '这是女神与高富帅之间的对话',
+            title: '测试',
+            description: 'Just a Test!',
             picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
             url: 'http://nodeapi.cloudfoundry.com/'
         }]);
@@ -66,10 +66,19 @@ router.use('/getAccessToken', function(req, res, next) {
 
 router.use('/getUserInfo', function(req, res, next) {
     wechatActions.getUserByCode(req.body.code, function (err, result) {
-        userService.add(result, function(err, result) {
-            console.log(result);
+        userService.getOne({openid: result.openid}, function(err, isExist) {
+            var dataToReturn = result;
+            if (!isExist) {
+                userService.add(result, function(err, addResult) {
+                    if (addResult) {
+                        dataToReturn._id = addResult._id;
+                    }
+                    res.json(dataToReturn);
+                });
+            } else {
+                res.json(isExist);
+            }
         });
-        res.json(result);
     });
 });
 

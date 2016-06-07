@@ -41,6 +41,8 @@ var getJSTicketByToken = function(access_token, callback) {
 
 // 获取Common Token
 var getCommonToken = function(callback) {
+    // Cache.clear();
+    // var commonToken ;
     var commonToken = Cache.get('commonToken');
     if (!commonToken) {
         var url = 'https://api.weixin.qq.com/cgi-bin/token';
@@ -56,7 +58,7 @@ var getCommonToken = function(callback) {
         client.request(url, args, function (err, result) {
             if (result.access_token) {
                 commonToken = result.access_token;
-                Cache.set('commonToken', commonToken, 7000000);
+                Cache.set('commonToken', commonToken, 5000000);
             }
             callback(err, result.access_token);
         });

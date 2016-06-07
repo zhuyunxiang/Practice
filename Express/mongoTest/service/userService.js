@@ -6,6 +6,12 @@ var userService = {
             callback(err, results);
         });
     },
+
+    getOne: function (params, callback) {
+        UserModel.getOne(params, function (err, results) {
+            callback(err, results);
+        });
+    },
     
     add: function (user, callback) {
         var userEntity = new UserModel(user);

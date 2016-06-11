@@ -1,0 +1,34 @@
+<div class="material-detail-container">
+	<div class="item-title">
+		{{value.title}}
+		<span class="pull-right"><button class="btn btn-success btn-xs" ui-sref="update({id:value._id})">修改</button></span>
+	</div>
+
+	<div class="item-container">
+		<div class="title">
+			{{value.title}}
+		</div>
+		<div class="publisher-info">
+			<a href="">{{value.userID.nickname||'匿名'}}</a> 发布
+		</div>
+		<div class="img-panel">
+			<img src="http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={{commonToken}}&media_id={{value.serverId}}" />
+		</div>
+		<!-- <div>http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={{commonToken}}&media_id={{value.serverId}}</div> -->
+		<div class="item-panel">
+			<div class="item-content">
+				{{value.desc}}
+			</div>
+		</div>
+	</div>
+	<div class="item-bottom">
+		<a ng-href="{{value.product_href}}" ng-show="value.product_href">查看产品</a>
+		<span>阅读数 {{value.custom_read_count||value.read_count}}</span>
+	</div>
+	<div>
+		<div>被浏览记录</div>
+		<div>
+			<div ></div>
+		</div>
+	</div>
+</div>

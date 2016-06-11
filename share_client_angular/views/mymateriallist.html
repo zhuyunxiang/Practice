@@ -1,0 +1,25 @@
+<div class="material-list">
+	<div class="header">
+		{{pageTitle}}
+	</div>
+
+	<div class="list-container">
+		<ul class="action-list">
+			<li ui-sref="mymaterialdetail({id:value._id})" class="action-item" ng-repeat="(key, value) in myMaterials">
+				<div>
+					<div class="img-panel">
+						<img src="http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={{commonToken}}&media_id={{value.serverId}}" />
+					</div>
+					<div class="item-panel">
+						<div class="item-title">
+							{{value.title|limitTo:12}}
+						</div>
+						<div class="item-content">
+							{{value.brif|limitTo:18}}
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,239 @@
+@border-color : #DDDDDD;
+@theme-header: #212821;
+@theme-header-text: #ffffff;
+
+.ul-class{
+            ul.action-list{
+            margin-top: 5px;
+            list-style: none;
+            width: 100%;
+            padding: 0px;
+            li.action-item{
+                margin-top: 6px;
+                margin-left: 0px;
+                border: solid 1px @border-color;
+                border-radius: 3px;
+                width: 100%;
+                overflow: hidden;
+                padding: 3px;
+                position: relative;
+                div.img-panel{
+                    height: 60px;
+                    width: 60px;
+                    border: solid 1px @border-color;
+                    border-radius: 3px;
+                    float: left;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 3px;
+                    }
+                }
+                div.item-panel{
+                    height: 60px;
+                    // border: solid 1px @border-color;
+                    // border-radius: 3px;
+                    float: left;
+                    margin-left: 15px;
+                    width: 70%;
+                    .item-title{
+                        font-weight: bolder;
+                    }
+                }
+
+                .frind-info{
+                    // border: solid 1px @border-color;
+                    // border-radius: 3px;
+                    position: absolute;
+                    bottom: 0px;
+                    right: 8px;
+                    color: @border-color
+
+                }
+            }
+        }
+}
+
+.my-profile {
+    // 首页
+    padding: 15px 10px;
+    // 头部
+    .header {
+        min-height: 125px;
+        overflow: hidden;
+        .head-img-container {
+            float: left;
+            width: 30%;
+            img {
+                width: 100px;
+                border-radius: 5px;
+            }
+        }
+        .name-container {
+            float: left;
+            width: 70%;
+        }
+    }
+    // 主体
+    .main-panel {
+        border: solid 1px @border-color;
+        border-radius: 3px;
+        padding: 10px;
+
+        .panel-header{
+            .add-label{
+                margin-left: 10px;
+            }
+        }
+
+        .ul-class;
+    }
+}
+
+// 新素材
+.new-share{
+    width: 100%;
+    .header{
+        background-color: @theme-header;
+        color: @theme-header-text;
+        height: 35px;
+        text-align: center;
+        line-height: 35px;
+        span{
+        }
+
+        .submit-btn-panel{
+            display: inline;
+            position: absolute;
+            right: 0;
+            button{
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .input-panel{
+        padding: 10px;
+        .item-panel{
+            margin-top: 10px;
+            .detail{
+                height: 200px;
+            }
+        }
+    }
+
+    .img-panel{
+        min-height: 120px;
+        border: solid 1px #E9E9E9;
+        margin: 10px;
+        div{
+            width: 100%;
+            height: 120px;
+            line-height: 120px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .img-uploaded{
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+// 素材Detail
+.material-detail-container{
+    width: 100%;
+    // padding: 10px;
+
+    .item-title{
+        background-color: @theme-header;
+        color: @theme-header-text;
+        height: 35px;
+        text-align: center;
+        line-height: 35px;
+    }
+
+    .item-container{
+        .title{
+            font-size: 15px;
+            font-weight: bolder;
+            margin: 10px 0px; 
+        }
+        .publisher-info{
+        }
+        .img-panel{
+            margin: 6px 0;
+            width: 100%;
+            img{
+                width: 100%;
+            }
+        }
+    }
+    .item-bottom{
+        margin-top: 10px;
+        padding: 10px 0 20px 0;
+        border: solid 1px #E9E9E9;
+        border-width: 1px 0 0 0 ;
+        a{
+            margin-right: 10px;
+        }
+    }
+}
+
+.material-list{
+    width: 100%;
+    .header{
+        background-color: @theme-header;
+        color: @theme-header-text;
+        height: 35px;
+        text-align: center;
+        line-height: 35px;
+        span{
+        }
+
+        .submit-btn-panel{
+            display: inline;
+            position: absolute;
+            right: 0;
+            button{
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .list-container{
+        .ul-class;
+    }
+}
+
+
+.user-detail{
+    width: 100%;
+    .header{
+        background-color: @theme-header;
+        color: @theme-header-text;
+        height: 35px;
+        text-align: center;
+        line-height: 35px;
+        
+    }
+
+    .user-detail-container{
+        padding: 15px 10px;
+        .img-panel{
+            width: 40%;
+            float: left;
+            overflow: hidden;
+            img{
+                width: 100%;
+            }
+        }
+
+        .text-panel{
+            float: left;
+            width: 60%;
+            padding: 20px;
+        }
+    }
+}

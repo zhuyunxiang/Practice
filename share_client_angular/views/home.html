@@ -1,0 +1,76 @@
+<div class="my-profile">
+	<div class="header">
+		<div class="head-img-container">
+			<img ng-src="{{userInfo.headimgurl}}" />
+		</div>
+		<div class="name-container">
+			{{userInfo.nickname}}
+		</div>
+	</div>
+
+	<div class="main-panel">
+		<div class="my-share">
+			<div class="panel-header">
+				<span>我的共享信息</span>
+				<span class="pull-right">
+					<span class="add-label">
+						<a class="btn btn-primary btn-xs" ui-sref="newshare">添加</a>
+					</span>
+				</span>
+				<span class="pull-right">
+					<span>
+					<a class="btn btn-success btn-xs" ui-sref="mymateriallist">更多</a>
+					</span>
+				</span>
+			</div>
+			<ul class="action-list">
+				<li ui-sref="mymaterialdetail({id:value._id})" class="action-item" ng-repeat="(key, value) in myMaterials">
+					<div>
+						<div class="img-panel">
+							<img src="http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={{commonToken}}&media_id={{value.serverId}}" />
+						</div>
+						<div class="item-panel">
+							<div class="item-title">
+								{{value.title|limitTo:12}}
+							</div>
+							<div class="item-content">
+								{{value.brif|limitTo:18}}
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="friends-share">
+			<div class="panel-header">
+				<span>朋友的共享信息</span>
+				<span class="pull-right">
+					<span>
+					<a class="btn btn-success btn-xs" ui-sref="friendsmateriallist">更多</a>
+					</span>
+				</span>
+			</div>
+			<ul class="action-list">
+				<li class="action-item" ng-repeat="(key, value) in othersMaterials">
+					<div class="li-container">
+						<div ui-sref="materialdetail({id:value._id})" class="img-panel">
+							<img src="http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={{commonToken}}&media_id={{value.serverId}}" />
+						</div>
+						<div ui-sref="materialdetail({id:value._id})" class="item-panel">
+							<div class="item-title">
+								{{value.title|limitTo:12}}
+							</div>
+							<div class="item-content">
+								{{value.brif|limitTo:18}}
+							</div>
+						</div>
+						<div class="frind-info">
+							<a ui-sref="userdetail({openid:value.openid})">{{value.userID.nickname||'匿名'}}
+							</a> 
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

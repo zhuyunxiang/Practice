@@ -66,6 +66,11 @@ router.use('/getAccessToken', function(req, res, next) {
 
 router.use('/getUserInfo', function(req, res, next) {
     wechatActions.getUserByCode(req.body.code, function (err, result) {
+        if (!result) {
+            res.json(null);
+            return false;
+        }
+
         userService.getOne({openid: result.openid}, function(err, isExist) {
             var dataToReturn = result;
             if (!isExist) {
@@ -99,8 +104,12 @@ router.use('/getImgById', function(req, res, next) {
 
 // 跳转
 router.use('/redirect', function(req, res, next) {
-    console.log(req.query.url);
-    var url = wechatActions.getAuthURL(req.query.url);
+    var path = req.originalUrl;
+    var len = path.indexOf("?");
+    var url = (len > 0) ? path.substring(len+5) : req.query.url;
+    //console.log(url);
+    // var url = wechatActions.getAuthURL(req.query.url);
+    url = wechatActions.getAuthURL(url);
     res.redirect(url);
 });
 

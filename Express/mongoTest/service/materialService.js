@@ -1,9 +1,16 @@
 var MaterialModel = require('../model/material');
 
 var MaterialService = {
-    add: function (material, callback) {
-        var materialEntity = new MaterialModel(material);
-        materialEntity.save(callback);
+    save: function (material, callback) {
+        if (material && material._id) {
+            var condition = {_id: material._id};
+            var dataToSave = material;
+            delete dataToSave._id;
+            materialEntity.update(condition, dataToSave, callback)
+        } else if(material&&!material._id){
+            var materialEntity = new MaterialModel(material);
+            materialEntity.save(callback);
+        }
     },
     get: function (condition, callback) {
     	if (condition) {

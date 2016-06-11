@@ -9,7 +9,7 @@ router.use(express.query());
 router.post('/save', function(req, res, next) {
 	var dataTosave = req.body;
 
-	materialService.add(dataTosave, function (err, result) {
+	materialService.save(dataTosave, function (err, result) {
     	res.send("添加成功");
 	});
 });

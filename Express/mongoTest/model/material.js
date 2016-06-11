@@ -57,12 +57,16 @@ Material.get = function (params, callback) {
     .sort({'_id': -1})
     .populate('userID')
     .exec(function (err, user) {
-        console.log(user);
+        // console.log(user);
         if (err) {
             return callback(err);
         }
         callback(null, user);
     });
+}
+
+Material.update = function (condition, model, callback) {
+    materialModel.update(condition, model, callback);
 }
 
 // 获取单条记录

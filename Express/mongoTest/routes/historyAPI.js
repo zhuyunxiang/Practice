@@ -15,10 +15,8 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/get', function(req, res, next) {
-	console.log(req.body);
 	var condition = req.body;
-
-	historyService.get(condition, function (err, result) {
+	historyService.groupCount(condition, function (err, result) {
 	    res.json(result);
 	});
 });
@@ -26,9 +24,10 @@ router.post('/get', function(req, res, next) {
 router.use('/test', function (req, res, next) {
 	historyService.groupCount({}, function (err, result) {
 		console.log(result);
-		res.json(result);
+		// res.json(result);
 	});
-});
 
+	res.json({});
+});
 
 module.exports = router;

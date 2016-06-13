@@ -66,7 +66,11 @@ Material.get = function (params, callback) {
 }
 
 Material.update = function (condition, model, callback) {
-    materialModel.update(condition, model, callback);
+    console.log(condition);
+    if(condition['_id']){
+        condition['_id'] = mongoose.Types.ObjectId(condition['_id']);
+    }
+    materialModel.update(condition, model, {upsert : true}, callback);
 }
 
 // 获取单条记录

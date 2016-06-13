@@ -5,6 +5,7 @@ var historySchema = new mongoose.Schema({
     material_id: mongoose.Schema.ObjectId,
     type: String,
     userID:  {type : mongoose.Schema.ObjectId, ref: 'User'},
+    sharedUser: {type : mongoose.Schema.ObjectId, ref: 'User'},
     created_at: {type: Date, default: Date.now}
 });
 
@@ -17,7 +18,11 @@ function History(history) {
 
 // 修改素材
 History.prototype.save = function(callback) {
-    var newhistory = new HistoryModel(this.history);
+    var dataToSave = this.history;
+    if (dataToSave && dataToSave.sharedUser) {
+        // dataToSave.sharedUser = mongoose.Types.ObjectId(dataToSave.sharedUser);
+    }
+    var newhistory = new HistoryModel(dataToSave);
     newhistory.save(function(err, data) {
         console.log(err);
         if (err) {
@@ -37,9 +42,8 @@ History.get = function (params, callback) {
     HistoryModel.find(params)
     .limit(limitNum)
     .sort({'_id': -1})
-    .populate('userID')
+    .populate(['userID', 'sharedUser'])
     .exec(function (err, user) {
-        // console.log(user);
         if (err) {
             return callback(err);
         }
@@ -48,36 +52,42 @@ History.get = function (params, callback) {
 }
 
 History.groupCount = function (condition, callback) {
+    if (condition && condition.material_id) {
+        condition.material_id = mongoose.Types.ObjectId(condition.material_id);
+    }
+
     HistoryModel.aggregate([
-        
-        {   
-            $project : {    
-                material_id : 1 , 
-                created_at: 1,   
+        {
+            $project : {
+                material_id : 1 ,
+                created_at: 1,
                 count: 1 ,
-                userID: 1
-            } 
+                userID: 1,
+                type: 1
+            }
         },
-        { 
+        {
             $match : condition
         },
         {
             $group: {
-                _id: '$userID',  //$region is the column name in collection
+                _id: '$userID',
                 count: {$sum: 1},
-                time: {$max: '$created_at'}
-                // material_id: '$material_id'
+                time: {$max: '$created_at'},
+                userID: {$max: '$userID'}
             }
         } ,
-    ], function (err, result) {
-        if (err) {
-            // next(err);
-        } else {
-            // res.json(result);
-        }
-            callback(err, result);
+    ])
+    .exec(function (err, result) {
+         var opts = [{
+            path   : 'userID',
+        }];
+        HistoryModel.populate(result, opts, function (a,b) {
+            // body...
+            callback(a, b);
+        });
     });
- 
+
 }
 
 module.exports = History;

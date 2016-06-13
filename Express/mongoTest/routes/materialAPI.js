@@ -10,7 +10,11 @@ router.post('/save', function(req, res, next) {
 	var dataTosave = req.body;
 
 	materialService.save(dataTosave, function (err, result) {
-    	res.send("添加成功");
+		if (dataTosave._id) {
+    		res.send("修改成功");
+		} else {
+    		res.send("添加成功");
+		}
 	});
 });
 

@@ -141,7 +141,7 @@
 .new-share .img-panel {
   min-height: 120px;
   border: solid 1px #E9E9E9;
-  margin: 10px;
+  margin: 20px 10px 10px 10px;
 }
 .new-share .img-panel div {
   width: 100%;
@@ -184,6 +184,35 @@
 }
 .material-detail-container .item-bottom a {
   margin-right: 10px;
+}
+.material-detail-container .history-title {
+  margin: 0 5px;
+  border: solid 1px #dddddd;
+  border-width: 0 0 1px 0;
+  font-weight: bolder;
+  font-size: 14px;
+}
+.material-detail-container .history-panel .history-item {
+  margin: 0 5px;
+  border: solid 1px #dddddd;
+  border-width: 0 0 1px 0;
+  padding: 3px;
+}
+.material-detail-container .history-panel .history-item .head-img-panel {
+  width: 30%;
+}
+.material-detail-container .history-panel .history-item .head-img-panel img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.material-detail-container .history-panel .history-item .name-span {
+  width: 30%;
+  display: inline-block;
+}
+.material-detail-container .history-panel .history-item .view-history-span {
+  display: inline-block;
+  width: 20%;
 }
 .material-list {
   width: 100%;

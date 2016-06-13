@@ -51,9 +51,11 @@ var setConfig = function(data) {
 Controllers.controller('handlerCtrl', ['$scope', '$state', function($scope, $state) {
     var state = getUrlParam('s');
     var aid = getUrlParam('aid');
+    var uid = getUrlParam('uid');
     if (state && aid) {
         $state.go(state, {
-            id: aid
+            id: aid,
+            uid: uid
         });
     } else {
         $state.go('home');
@@ -202,6 +204,7 @@ Controllers.controller('newshareCtrl', ['$scope', 'AuthService', 'materialServic
         });
     }
 }]);
+
 // 修改素材
 Controllers.controller('updateshareCtrl', ['$scope', 'AuthService', 'materialService','$stateParams', function($scope, AuthService, materialService, $stateParams) {
     $scope.pageTitle = "修改素材";
@@ -211,22 +214,17 @@ Controllers.controller('updateshareCtrl', ['$scope', 'AuthService', 'materialSer
     materialService.get({
         '_id': $stateParams.id
     }, function(data) {
-        alert(JSON.stringify(data));
-        $scope.info = data[0];
-    });
-
-    // 获取用户信息
-    AuthService.getLocalUserInfo(code, function(data) {
-        if (data) {
-            
-        } else {
-            // 错误提示 跳转到微信验证页面
-            alert('error');
-        }
+        // alert(JSON.stringify(data));
+        AuthService.getAccessToken(function(tokenData) {
+            $scope.commonToken = tokenData.token;
+            $scope.info = data[0];
+            $scope.info.imgUrl = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token="+$scope.commonToken+"&media_id="+data[0]['serverId'];
+        });
+        
     });
 
     // 保存信息到数据库
-    $scope.saveNewInfo = function() {
+    $scope.saveNewInfo = function() {        
         materialService.save($scope.info, function(data) {
             alert(data);
         });
@@ -275,7 +273,6 @@ Controllers.controller('updateshareCtrl', ['$scope', 'AuthService', 'materialSer
 
 // 详细页
 Controllers.controller('materialdetailCtrl', ['$scope', '$timeout', '$stateParams', '$location', 'AuthService', 'materialService', function($scope, $timeout, $stateParams, $location, AuthService, materialService) {
-    $scope.id = $stateParams;
     var _init = function() {
         AuthService.getAccessToken(function(data) {
             $scope.commonToken = data.token;
@@ -291,8 +288,7 @@ Controllers.controller('materialdetailCtrl', ['$scope', '$timeout', '$stateParam
                     material_id:$scope.value._id,
                     type: 'read'
                 }, function(data) {
-                    
-                    // alert(JSON.stringify(data));
+                    $scope.readHistory = data;
                 });
 
                 if ($scope.value.userID.openid != $scope.userInfo.openid) {
@@ -301,10 +297,11 @@ Controllers.controller('materialdetailCtrl', ['$scope', '$timeout', '$stateParam
                         type: 'read',
                         userID: $scope.userInfo._id
                     }, function(data) {
-                        alert(data);
+                        // alert("保存记录成功");
                     });
                 } else {
                     // 查看自己的素材
+                    $scope.isMine = true;
                 }
                 wxready();
             });
@@ -317,7 +314,7 @@ Controllers.controller('materialdetailCtrl', ['$scope', '$timeout', '$stateParam
             var shareData = {
                 title: "Share:" + $scope.value.title,
                 desc: $scope.value.brif,
-                link: serverHost + "/wechatAPI/redirect?url=" + clientHost + "/index.html?s=materialdetail&aid=" + $stateParams.id,
+                link: serverHost + "/wechatAPI/redirect?url=" + clientHost + "/index.html?s=materialdetail&aid=" + $stateParams.id + "&uid=" +$scope.userInfo._id,
                 imgUrl: 'http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=' + $scope.commonToken + '&media_id=' + $scope.value.serverId,
                 trigger: function(res) {
                     // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
@@ -358,103 +355,16 @@ Controllers.controller('materialdetailCtrl', ['$scope', '$timeout', '$stateParam
             wx.onMenuShareAppMessage(shareData);
         });
     }
-
-    var timer = $timeout(function() {
-        $scope.userInfo = AuthService.currentUser;
-        _init();
-    }, 200);
-}]);
-
-// 我的详细页
-Controllers.controller('mymaterialdetailCtrl', ['$scope', '$timeout', '$stateParams', '$location', 'AuthService', 'materialService', function($scope, $timeout, $stateParams, $location, AuthService, materialService) {
-    $scope.id = $stateParams;
-    var _init = function() {
-        AuthService.getAccessToken(function(data) {
-            $scope.commonToken = data.token;
-        });
-
-        if ($stateParams && $stateParams.id) {
-            materialService.get({
-                '_id': $stateParams.id
-            }, function(data) {
-                $scope.value = data[0];
-
-                materialService.getHistory({
-                    material_id:$scope.value._id,
-                    type: 'read'
-                }, function(data) {
-                    console.log(data);
-                    alert(JSON.stringify(data));
-                });
-
-                if ($scope.value.userID.openid != $scope.userInfo.openid) {
-                    materialService.saveHistory({
-                        material_id: $scope.value._id,
-                        type: 'read',
-                        userID: $scope.userInfo._id
-                    }, function(data) {
-                        // alert("保存记录成功");
-                    });
-                } else {
-                    // 查看自己的素材
-                }
-                wxready();
-            });
-        }
-    }
-
-    var wxready = function() {
-        // 微信JS SDK加载完成
-        wx.ready(function() {
-            var shareData = {
-                title: "Share:" + $scope.value.title,
-                desc: $scope.value.brif,
-                link: serverHost + "/wechatAPI/redirect?url=" + clientHost + "/index.html?s=materialdetail&aid=" + $stateParams.id,
-                imgUrl: 'http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=' + $scope.commonToken + '&media_id=' + $scope.value.serverId,
-                trigger: function(res) {
-                    // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-                    alert('用户点击发送给朋友');
-                },
-                success: function(res) {
-                    materialService.saveHistory({
-                        material_id: $scope.value._id,
-                        type: 'shared',
-                        userID: $scope.userInfo._id
-                    }, function(data) {
-                        // alert("保存记录成功");
-                    });
-                },
-                cancel: function(res) {
-                    materialService.saveHistory({
-                        material_id: $scope.value._id,
-                        type: 'cancelshared',
-                        userID: $scope.userInfo._id
-                    }, function(data) {
-                        // alert("保存记录成功");
-                    });
-                },
-                fail: function(res) {
-                    materialService.saveHistory({
-                        material_id: $scope.value._id,
-                        type: 'sharefiled',
-                        userID: $scope.userInfo._id
-                    }, function(data) {
-                        // alert("保存记录成功");
-                    });
-                    alert(JSON.stringify(res));
-                }
-            };
-            // 分享到朋友圈
-            wx.onMenuShareTimeline(shareData);
-            // 分享给朋友接口
-            wx.onMenuShareAppMessage(shareData);
+    // 获取微信浏览器自动在URL里面添加的Code参数 
+    var code = getUrlParam('code');
+    if (code) {
+        // 获取用户信息
+        AuthService.getLocalUserInfo(code, function(data) {
+            $scope.userInfo = data;
+            // 初始化
+            _init();
         });
     }
-
-    var timer = $timeout(function() {
-        $scope.userInfo = AuthService.currentUser;
-        _init();
-    }, 200);
 }]);
 
 // 个人信息

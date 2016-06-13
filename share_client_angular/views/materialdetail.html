@@ -1,6 +1,7 @@
 <div class="material-detail-container">
 	<div class="item-title">
 		{{value.title}}
+		<span class="pull-right" ng-show="isMine"><button class="btn btn-success btn-xs" ui-sref="update({id:value._id})">修改</button></span>
 	</div>
 
 	<div class="item-container">
@@ -14,14 +15,26 @@
 			<img src="http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={{commonToken}}&media_id={{value.serverId}}" />
 		</div>
 		<!-- <div>http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={{commonToken}}&media_id={{value.serverId}}</div> -->
-		<div class="item-panel">
+		<div class="item-panel" ng-show="value.desc">
 			<div class="item-content">
-				{{value.desc}}
+				<pre>{{value.desc}}</pre>
 			</div>
 		</div>
 	</div>
-	<div class="item-bottom">
+	<div class="item-bottom" ng-show="value.read_count&&value.custom_read_count">
 		<a ng-href="{{value.product_href}}" ng-show="value.product_href">查看产品</a>
-		<span>阅读数 {{value.custom_read_count||value.read_count}}</span>
+		<span ng-show="value.read_count">实际阅读数 {{value.read_count}}</span>
+		<span ng-show="value.custom_read_count">自定义阅读数 {{value.custom_read_count}}</span>
+	</div>
+	<div>
+		<div ng-show="readHistory.length" class="history-title">被浏览记录</div>
+		<div class="history-panel">
+			<div class="history-item" ng-repeat="(key, value) in readHistory">
+				<span class="head-img-panel"><img src="{{value.userID.headimgurl}}"></span>
+				<span class="name-span">{{value.userID.nickname||'匿名'}}</span>
+				<span class="view-history-span">{{value.count}}次</span>
+				<span>{{value.time|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+			</div>
+		</div>
 	</div>
 </div>

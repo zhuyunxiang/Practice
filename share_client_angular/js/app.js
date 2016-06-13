@@ -49,21 +49,12 @@ myApp.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
         })
         // 别人的素材详细页
         .state('materialdetail', {
-            url: '/materialdetail/{id}',
+            url: '/materialdetail/{id}/{uid}',
             templateUrl: 'views/materialdetail.html',
             data: {
                 pageTitle: '详细页'
             },
             controller: 'materialdetailCtrl'
-        })
-        // 自己的素材详细页
-        .state('mymaterialdetail', {
-            url: '/mymaterialdetail/{id}',
-            templateUrl: 'views/mymaterialdetail.html',
-            data: {
-                pageTitle: '详细页'
-            },
-            controller: 'mymaterialdetailCtrl'
         })
         // 用户信息详细信息
         .state('userdetail', {

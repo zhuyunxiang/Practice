@@ -12,6 +12,14 @@ var scheduleService = {
 	　　});
 	},
 
+	execEveryNight: function (callback) {
+		var rule = new schedule.RecurrenceRule();
+		rule.dayOfWeek = [0, new schedule.Range(1, 6)];
+		rule.hour = 22;
+		rule.minute = 38;
+		var j = schedule.scheduleJob(rule, callback);
+	},
+
 	secondTask : function () {
 		var rule = new schedule.RecurrenceRule();
 		var times = [];

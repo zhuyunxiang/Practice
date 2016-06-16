@@ -10,7 +10,7 @@ var users = require('./routes/users');
 var wechatAPI = require('./routes/wechatAPI');
 var materialAPI = require('./routes/materialAPI');
 var historyAPI = require('./routes/historyAPI');
-var scheduleService = require('./service/scheduleService');
+var task = require('./task');
 
 var app = express();
 
@@ -31,8 +31,6 @@ app.use('/wechatAPI', wechatAPI);
 app.use('/historyAPI', historyAPI);
 app.use('/materialAPI', materialAPI);
 app.use('/users', users);
-
-scheduleService.dayTask();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

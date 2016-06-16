@@ -35,15 +35,6 @@ Material.prototype.save = function(callback) {
     });
 };
 
-// Material.get = function (params,callback) {
-//     materialModel.find(params, function(err, user) {
-//         if (err) {
-//             return callback(err);
-//         }
-//         callback(null, user);
-//     });
-// }
-
 // 获取素材 包括设置个数限制
 Material.get = function (params, callback) {
     var limitNum = null;
@@ -65,6 +56,7 @@ Material.get = function (params, callback) {
     });
 }
 
+// 更新素材信息
 Material.update = function (condition, model, callback) {
     console.log(condition);
     if(condition['_id']){

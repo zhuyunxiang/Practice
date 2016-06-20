@@ -1,0 +1,303 @@
+.ul-class ul.action-list {
+  margin-top: 5px;
+  list-style: none;
+  width: 100%;
+  padding: 0px;
+}
+.ul-class ul.action-list li.action-item {
+  margin-top: 6px;
+  margin-left: 0px;
+  border: solid 1px #dddddd;
+  border-radius: 3px;
+  width: 100%;
+  overflow: hidden;
+  padding: 3px;
+  position: relative;
+}
+.ul-class ul.action-list li.action-item div.img-panel {
+  height: 60px;
+  width: 60px;
+  border: solid 1px #dddddd;
+  border-radius: 3px;
+  float: left;
+}
+.ul-class ul.action-list li.action-item div.img-panel img {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+}
+.ul-class ul.action-list li.action-item div.item-panel {
+  height: 60px;
+  float: left;
+  margin-left: 15px;
+  width: 70%;
+}
+.ul-class ul.action-list li.action-item div.item-panel .item-title {
+  font-weight: bolder;
+}
+.ul-class ul.action-list li.action-item .frind-info {
+  position: absolute;
+  bottom: 0px;
+  right: 8px;
+  color: #dddddd;
+}
+.my-profile {
+  padding: 15px 10px;
+}
+.my-profile .header {
+  min-height: 125px;
+  overflow: hidden;
+}
+.my-profile .header .head-img-container {
+  float: left;
+  width: 30%;
+}
+.my-profile .header .head-img-container img {
+  width: 100px;
+  border-radius: 5px;
+}
+.my-profile .header .name-container {
+  float: left;
+  width: 70%;
+}
+.my-profile .main-panel {
+  border: solid 1px #dddddd;
+  border-radius: 3px;
+  padding: 10px;
+}
+.my-profile .main-panel .panel-header .add-label {
+  margin-left: 10px;
+}
+.my-profile .main-panel ul.action-list {
+  margin-top: 5px;
+  list-style: none;
+  width: 100%;
+  padding: 0px;
+}
+.my-profile .main-panel ul.action-list li.action-item {
+  margin-top: 6px;
+  margin-left: 0px;
+  border: solid 1px #dddddd;
+  border-radius: 3px;
+  width: 100%;
+  overflow: hidden;
+  padding: 3px;
+  position: relative;
+}
+.my-profile .main-panel ul.action-list li.action-item div.img-panel {
+  height: 60px;
+  width: 60px;
+  border: solid 1px #dddddd;
+  border-radius: 3px;
+  float: left;
+}
+.my-profile .main-panel ul.action-list li.action-item div.img-panel img {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+}
+.my-profile .main-panel ul.action-list li.action-item div.item-panel {
+  height: 60px;
+  float: left;
+  margin-left: 15px;
+  width: 70%;
+}
+.my-profile .main-panel ul.action-list li.action-item div.item-panel .item-title {
+  font-weight: bolder;
+}
+.my-profile .main-panel ul.action-list li.action-item .frind-info {
+  position: absolute;
+  bottom: 0px;
+  right: 8px;
+  color: #dddddd;
+}
+.new-share {
+  width: 100%;
+}
+.new-share .header {
+  background-color: #212821;
+  color: #ffffff;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+}
+.new-share .header .submit-btn-panel {
+  display: inline;
+  position: absolute;
+  right: 0;
+}
+.new-share .header .submit-btn-panel button {
+  margin-right: 10px;
+}
+.new-share .input-panel {
+  padding: 10px;
+}
+.new-share .input-panel .item-panel {
+  margin-top: 10px;
+}
+.new-share .input-panel .item-panel .detail {
+  height: 200px;
+}
+.new-share .img-panel {
+  min-height: 120px;
+  border: solid 1px #E9E9E9;
+  margin: 20px 10px 10px 10px;
+}
+.new-share .img-panel div {
+  width: 100%;
+  height: 120px;
+  line-height: 120px;
+  text-align: center;
+  font-size: 18px;
+}
+.new-share .img-panel .img-uploaded {
+  width: 100%;
+  height: 100%;
+}
+.material-detail-container {
+  width: 100%;
+}
+.material-detail-container .item-title {
+  background-color: #212821;
+  color: #ffffff;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+}
+.material-detail-container .item-container .title {
+  font-size: 15px;
+  font-weight: bolder;
+  margin: 10px 0px;
+}
+.material-detail-container .item-container .img-panel {
+  margin: 6px 0;
+  width: 100%;
+}
+.material-detail-container .item-container .img-panel img {
+  width: 100%;
+}
+.material-detail-container .item-bottom {
+  margin-top: 10px;
+  padding: 10px 0 20px 0;
+  border: solid 1px #E9E9E9;
+  border-width: 1px 0 0 0 ;
+}
+.material-detail-container .item-bottom a {
+  margin-right: 10px;
+}
+.material-detail-container .history-title {
+  margin: 0 5px;
+  border: solid 1px #dddddd;
+  border-width: 0 0 1px 0;
+  font-weight: bolder;
+  font-size: 14px;
+}
+.material-detail-container .history-panel .history-item {
+  margin: 0 5px;
+  border: solid 1px #dddddd;
+  border-width: 0 0 1px 0;
+  padding: 3px;
+}
+.material-detail-container .history-panel .history-item .head-img-panel {
+  width: 30%;
+}
+.material-detail-container .history-panel .history-item .head-img-panel img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.material-detail-container .history-panel .history-item .name-span {
+  width: 30%;
+  display: inline-block;
+}
+.material-detail-container .history-panel .history-item .view-history-span {
+  display: inline-block;
+  width: 20%;
+}
+.material-list {
+  width: 100%;
+}
+.material-list .header {
+  background-color: #212821;
+  color: #ffffff;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+}
+.material-list .header .submit-btn-panel {
+  display: inline;
+  position: absolute;
+  right: 0;
+}
+.material-list .header .submit-btn-panel button {
+  margin-right: 10px;
+}
+.material-list .list-container ul.action-list {
+  margin-top: 5px;
+  list-style: none;
+  width: 100%;
+  padding: 0px;
+}
+.material-list .list-container ul.action-list li.action-item {
+  margin-top: 6px;
+  margin-left: 0px;
+  border: solid 1px #dddddd;
+  border-radius: 3px;
+  width: 100%;
+  overflow: hidden;
+  padding: 3px;
+  position: relative;
+}
+.material-list .list-container ul.action-list li.action-item div.img-panel {
+  height: 60px;
+  width: 60px;
+  border: solid 1px #dddddd;
+  border-radius: 3px;
+  float: left;
+}
+.material-list .list-container ul.action-list li.action-item div.img-panel img {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+}
+.material-list .list-container ul.action-list li.action-item div.item-panel {
+  height: 60px;
+  float: left;
+  margin-left: 15px;
+  width: 70%;
+}
+.material-list .list-container ul.action-list li.action-item div.item-panel .item-title {
+  font-weight: bolder;
+}
+.material-list .list-container ul.action-list li.action-item .frind-info {
+  position: absolute;
+  bottom: 0px;
+  right: 8px;
+  color: #dddddd;
+}
+.user-detail {
+  width: 100%;
+}
+.user-detail .header {
+  background-color: #212821;
+  color: #ffffff;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+}
+.user-detail .user-detail-container {
+  padding: 15px 10px;
+}
+.user-detail .user-detail-container .img-panel {
+  width: 40%;
+  float: left;
+  overflow: hidden;
+}
+.user-detail .user-detail-container .img-panel img {
+  width: 100%;
+}
+.user-detail .user-detail-container .text-panel {
+  float: left;
+  width: 60%;
+  padding: 20px;
+}

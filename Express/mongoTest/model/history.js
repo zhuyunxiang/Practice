@@ -24,8 +24,8 @@ History.prototype.save = function(callback) {
     }
     var newhistory = new HistoryModel(dataToSave);
     newhistory.save(function(err, data) {
-        console.log(err);
         if (err) {
+            console.log(err);
             return callback(err);
         }
         callback(null, data);

@@ -23,6 +23,6 @@
     "bootstrap": "~3.3.6",
     "oclazyload": "~1.0.8",
     "angular-ui": "^0.4.0",
-    "angular-ui-router": "ui-router#^0.3.0"
+    "angular-ui-router": "^0.3.0"
   }
 }

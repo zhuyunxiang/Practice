@@ -10,6 +10,7 @@ var users = require('./routes/users');
 var wechatAPI = require('./routes/wechatAPI');
 var materialAPI = require('./routes/materialAPI');
 var historyAPI = require('./routes/historyAPI');
+var friendAPI = require('./routes/friendAPI');
 var task = require('./task');
 
 var app = express();
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/wechatAPI', wechatAPI);
 app.use('/historyAPI', historyAPI);
+app.use('/friendAPI', friendAPI);
 app.use('/materialAPI', materialAPI);
 app.use('/users', users);
 

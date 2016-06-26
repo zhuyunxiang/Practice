@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<style>
+		body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;overflow: hidden;}
+		</style>
+	</head>
+	<body>
+		<iframe ng-src='{{frameUrl}}' width='100%' height='100%' frameborder='0' name="_blank" id="_blank" ></iframe>
+		<div class="material-detail-container">
+			
+		<div class="item-bottom">
+			<a ng-href="{{value.product_href}}" ng-show="value.product_href">查看产品</a>
+			<span ng-show="value.read_count">实际阅读数 {{value.read_count}}</span>
+			<span ng-show="value.custom_read_count">自定义阅读数 {{value.custom_read_count}}</span>
+		</div>
+		<div>
+			<div ng-show="readHistory.length" class="history-title">被浏览记录</div>
+			<div class="history-panel">
+				<div class="history-item" ng-repeat="(key, value) in readHistory">
+					<span class="head-img-panel"><img src="{{value.userID.headimgurl}}"></span>
+					<span class="name-span">{{value.userID.nickname||'匿名'}}</span>
+					<span class="view-history-span">{{value.count}}次</span>
+					<span>{{value.time|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+				</div>
+			</div>
+		</div>
+		</div>
+	</body>
+</html>

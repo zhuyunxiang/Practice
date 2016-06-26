@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var friendSchema = new mongoose.Schema({
     type: String,
     friendInfo:  {type : mongoose.Schema.ObjectId, ref: 'User'},
+    self:  {type : mongoose.Schema.ObjectId, ref: 'User'},
     created_at: {type: Date, default: Date.now}
 });
 
@@ -27,3 +28,24 @@ Friend.prototype.save = function(callback) {
         }
     });
 };
+
+Friend.get = function (params, callback) {
+    if (params && params['self']) {
+        params['self'] = mongoose.Types.ObjectId(params['self']);
+    }
+    if (params && params['friendInfo']) {
+        params['friendInfo'] = mongoose.Types.ObjectId(params['friendInfo']);
+    }
+
+    FriendModel.find(params)
+    .sort({'_id': -1})
+    .populate(['friendInfo'])
+    .exec(function (err, user) {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, user);
+    });
+}
+
+module.exports = Friend;

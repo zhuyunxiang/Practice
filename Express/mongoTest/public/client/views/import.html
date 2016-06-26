@@ -3,11 +3,10 @@
 		<div class="header">
 			{{pageTitle}}
 			<span class="submit-btn-panel">
-				<button class="btn btn-warning btn-xs" ui-sref="import">导入</button>
+			<button class="btn btn-warning btn-xs" ui-sref="newshare">输入</button>
 				<button class="btn btn-success btn-xs" ng-click="saveNewInfo()" ng-disabled="myform.$invalid">提交</button>
 			</span>
 		</div>
-
 		<div class="input-panel">
 			<div class="item-panel">
 				<input ng-model="info.title" name="title" class="form-control" placeholder="请输入标题" required />
@@ -19,22 +18,11 @@
 			</div>
 				<p ng-show="myform.brif.$invalid" class="help-block pull-right">*简述必须填写</p>
 		</div>
-		<div class="img-panel">
-			<div ng-click="chooseImg()" ng-hide="info.imgUrl">点此上传图片</div>
-			<img ng-src="{{info.imgUrl}}" ng-show="info.imgUrl" ng-click="chooseImg()" class="img-uploaded">
-		</div>
-		
 		<div class="input-panel">
 			<div class="item-panel">
-				<textarea ng-model="info.desc" name="desc" class="form-control detail" placeholder="请输入详细内容" required></textarea>
+				<textarea ng-model="info.org_url" name="org_url" class="form-control" placeholder="请输入要导入的地址" required></textarea>
 			</div>
-				<p ng-show="myform.desc.$invalid" class="help-block pull-right">*详细内容必须填写</p>
-			<div class="item-panel">
-				<input class="form-control" ng-model="info.product_href" placeholder="产品地址" />
-			</div>
-			<div class="item-panel">
-				<input class="form-control" ng-model="info.custom_read_count" placeholder="自定义阅读量" />
-			</div>
+			<p ng-show="myform.org_url.$invalid" class="help-block pull-right">*要导入的地址必须填写</p>
 		</div>
 	</form>
 </div>

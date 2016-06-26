@@ -6,7 +6,6 @@ var Directives = angular.module('Directives', []);
 var Filters = angular.module('Filters', []);
 var serverHost = "http://zhuyunxiang.com/share";
 var clientHost = "http://zhuyunxiang.com/share_client_angular";
-
 // 配置路由
 myApp.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     $urlRouterProvider.otherwise('/handler');
@@ -16,7 +15,7 @@ myApp.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
             url: '/handler',
             template: '',
             data: {
-                pageTitle: 'Home'
+                pageTitle: '首页'
             },
             controller: 'handlerCtrl'
         })
@@ -25,7 +24,7 @@ myApp.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
             url: '/home',
             templateUrl: 'views/home.html',
             data: {
-                pageTitle: 'Home'
+                pageTitle: '首页'
             },
             controller: 'myController'
         })
@@ -38,12 +37,12 @@ myApp.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
             },
             controller: 'newshareCtrl'
         })
-        // 新建素材
+        // 修改素材
         .state('update', {
             url: '/update/{id}',
             templateUrl: 'views/newshare.html',
             data: {
-                pageTitle: '修改素材'
+                pageTitle: '更新素材'
             },
             controller: 'updateshareCtrl'
         })
@@ -52,7 +51,7 @@ myApp.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
             url: '/materialdetail/{id}/{uid}',
             templateUrl: 'views/materialdetail.html',
             data: {
-                pageTitle: '详细页'
+                pageTitle: '别人的素材详细页'
             },
             controller: 'materialdetailCtrl'
         })
@@ -85,11 +84,29 @@ myApp.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
         })
         // 关于(测试)
         .state('about', {
-            url: '/about/{id:[0-9]{1,4}}',
+            url: '/about',
             templateUrl: 'views/about.html',
             data: {
                 pageTitle: 'About'
             }
+        })
+        // 导入的素材
+        .state('importmaterial', {
+            url: '/importmaterial/{id}/{uid}',
+            templateUrl: 'views/importmaterial.html',
+            data: {
+                pageTitle: '导入的素材'
+            },
+            controller: 'importmaterialCtrl'
+        })
+        // 导入
+        .state('import', {
+            url: '/import',
+            templateUrl: 'views/import.html',
+            data: {
+                pageTitle: '导入素材'
+            },
+            controller: 'newimportCtrl'
         })
 });
 
@@ -100,4 +117,18 @@ function getUrlParam(name) {
     if (r != null)
     return unescape(r[2]);
     return null; //返回参数值
+}
+
+function isWeiXin(){
+    var ua = window.navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+if (!isWeiXin()) {
+    alert("qinyongweixindakai");
+    // window.location.href = "http://www.baidu.com";
 }

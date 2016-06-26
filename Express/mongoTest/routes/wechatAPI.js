@@ -107,9 +107,9 @@ router.use('/redirect', function(req, res, next) {
     var path = req.originalUrl;
     var len = path.indexOf("?");
     var url = (len > 0) ? path.substring(len+5) : req.query.url;
-    //console.log(url);
     // var url = wechatActions.getAuthURL(req.query.url);
     url = wechatActions.getAuthURL(url);
+    console.log(url);
     res.redirect(url);
 });
 

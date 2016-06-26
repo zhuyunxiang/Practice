@@ -9,6 +9,7 @@ var materialSchema = new mongoose.Schema({
     brif: String,
     desc: String,
     product_href: String,
+    org_url: String,
     img_is_local: String,
     custom_read_count: Number,
     read_count: Number,

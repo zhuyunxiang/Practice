@@ -49,8 +49,11 @@ Services.service('AuthService', ['$http', '$rootScope','BaseService',
 
             // localStorage.clear();
             var userInfo = localStorage.getItem('localUserInfo');
+            var timestamp = localStorage.getItem('timestamp');
+            var nowTimestamp = (new Date()).getTime();
+            var timeLimit = parseInt(nowTimestamp/1000) - parseInt(timestamp/1000);
             // 判断缓存
-            if (!userInfo) {
+            if ((!userInfo)||timeLimit>86400||(!timestamp)) {
                 var params = {
                     url:serverHost + '/wechatAPI/getUserInfo',
                     params: $.param({code: code})
@@ -59,14 +62,17 @@ Services.service('AuthService', ['$http', '$rootScope','BaseService',
                 BaseService.request(params, function (data) {
                     if (data.openid) {
                         localStorage.setItem('localUserInfo', JSON.stringify(data));
+                        localStorage.setItem('timestamp', nowTimestamp);
                         this.userInfo = data;
                     }
+                    alert("更新一次个人数据");
                     callback(data);
                 });
             } else {
                 // alert('这个数据从缓存取的哟');
                 userInfo = JSON.parse(userInfo);
                 this.userInfo = userInfo;
+
                 callback(userInfo);
             }
         }

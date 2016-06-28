@@ -43,8 +43,9 @@
 					<div>
 						<div class="img-panel">
 							<img src="img/default_material.jpg" ng-if="!value.serverId" />
-							<img src="http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={{commonToken}}&media_id={{value.serverId}}" ng-if="value.img_is_local!='local'&&value.serverId" onerror="onerror=null;src='img/default_material.jpg'"/>
+							<img src="http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={{commonToken}}&media_id={{value.serverId}}" ng-if="value.img_is_local!='local'&&value.serverId" />
 							<img src="{{serverHost}}{{value.imgUrl}}" ng-if="value.img_is_local=='local'"/>
+							<!-- onerror="onerror=null;src='img/default_material.jpg'" -->
 						</div>
 						<!-- {{value.img_is_local=='local'?'本地':'网络'}} -->
 						<div class="item-panel">

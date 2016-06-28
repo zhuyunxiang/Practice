@@ -108,6 +108,14 @@ myApp.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
             },
             controller: 'newimportCtrl'
         })
+        .state('updateImport', {
+            url: '/updateImport/{id}',
+            templateUrl: 'views/import.html',
+            data: {
+                pageTitle: '修改导入素材'
+            },
+            controller: 'updatenewimportCtrl'
+        })
 });
 
 // 获取URL里面的参数

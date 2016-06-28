@@ -20,10 +20,9 @@
 				<p ng-show="myform.brif.$invalid" class="help-block pull-right">*简述必须填写</p>
 		</div>
 		<div class="img-panel">
-			<div ng-click="chooseImg()" ng-hide="info.imgUrl">点此上传图片</div>
-			<img ng-src="{{info.imgUrl}}" ng-show="info.imgUrl" ng-click="chooseImg()" class="img-uploaded">
+			<div ng-click="chooseImg()" ng-hide="imgUrl">点此上传图片</div>
+			<img ng-src="{{imgUrl}}" ng-show="imgUrl" ng-click="chooseImg()" class="img-uploaded">
 		</div>
-		
 		<div class="input-panel">
 			<div class="item-panel">
 				<textarea ng-model="info.desc" name="desc" class="form-control detail" placeholder="请输入详细内容" required></textarea>

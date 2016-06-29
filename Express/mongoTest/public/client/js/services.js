@@ -115,7 +115,7 @@ Services.service('AuthService', ['$http', '$rootScope','BaseService',
 Services.service('materialService', ['BaseService', function(BaseService){
     this.save = function (data, callback) {
         var params = {
-            url: serverHost + '/materialAPI/save',
+            url: serverHost + '/material/save',
             params: $.param(data)
         };
 
@@ -124,7 +124,7 @@ Services.service('materialService', ['BaseService', function(BaseService){
 
     this.get = function (condition, callback) {
         var params = {
-            url: serverHost + '/materialAPI/get',
+            url: serverHost + '/material/get',
             params: $.param(condition)
         };
         BaseService.request(params, callback);
@@ -132,7 +132,7 @@ Services.service('materialService', ['BaseService', function(BaseService){
 
     this.saveHistory = function (data, callback) {
         var params = {
-            url: serverHost + '/historyAPI/',
+            url: serverHost + '/history/',
             params: $.param(data)
         };
 
@@ -141,7 +141,7 @@ Services.service('materialService', ['BaseService', function(BaseService){
 
     this.getHistory = function (condition, callback) {
         var params = {
-            url: serverHost + '/historyAPI/get',
+            url: serverHost + '/history/get',
             params: $.param(condition)
         };
 

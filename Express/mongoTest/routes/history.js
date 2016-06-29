@@ -6,6 +6,7 @@ var friendService = require('../service/friendService');
 
 router.use(express.query());
 
+// 添加历史记录
 router.post('/', function(req, res, next) {
 	var dataTosave = req.body;
 	if (dataTosave.type == 'shared') {
@@ -29,20 +30,12 @@ router.post('/', function(req, res, next) {
 	});
 });
 
+// 根据条件获取浏览记录
 router.post('/get', function(req, res, next) {
 	var condition = req.body;
 	historyService.groupCount(condition, function (err, result) {
 	    res.json(result);
 	});
-});
-
-router.use('/test', function (req, res, next) {
-	historyService.groupCount({}, function (err, result) {
-		console.log(result);
-		// res.json(result);
-	});
-
-	res.json({});
 });
 
 module.exports = router;

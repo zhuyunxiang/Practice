@@ -5,6 +5,7 @@ var friendService = require('../service/friendService');
 
 router.use(express.query());
 
+// 添加朋友
 router.post('/', function(req, res, next) {
 	var dataTosave = req.body;
 
@@ -13,6 +14,7 @@ router.post('/', function(req, res, next) {
 	});
 });
 
+// 获取
 router.post('/get', function(req, res, next) {
 	var condition = req.body;
 	friendService.groupCount(condition, function (err, result) {

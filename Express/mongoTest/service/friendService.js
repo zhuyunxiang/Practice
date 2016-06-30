@@ -6,10 +6,17 @@ var FriendService = {
         friendEntity.save(callback);
     },
     get: function (condition, callback) {
+        if (condition) {
+            FriendModel.get(condition, callback);
+        } else {
+            FriendModel.get({}, callback);
+        }
+    },
+    getBase: function (condition, callback) {
     	if (condition) {
-    		FriendModel.get(condition, callback);
+    		FriendModel.getBase(condition, callback);
     	} else {
-    		FriendModel.get({}, callback);
+    		FriendModel.getBase({}, callback);
     	}
     }
 };

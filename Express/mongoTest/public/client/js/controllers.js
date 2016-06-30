@@ -103,6 +103,10 @@ Controllers.controller('myController', ['$scope', '$rootScope', '$timeout', 'Aut
                 }, function(data) {
                     $scope.othersMaterials = data;
                 });
+
+                materialService.getFriendsMaterial($scope.userInfo._id, function(data) {
+                    $scope.friendsMaterials = data;
+                });
             }
             // });
 
@@ -178,7 +182,7 @@ Controllers.controller('newshareCtrl', ['$scope', '$state', 'AuthService', 'mate
                                 $scope.serverId.push(imgRes.serverId);
                                 $scope.info.serverId = imgRes.serverId;
                                 AuthService.getImgURL(imgRes.serverId, function(data) {
-                                    $scope.info.imgUrl = data.url;
+                                    $scope.imgUrl = data.url;
                                 });
                                 if (i < length) {
                                     upload();
@@ -393,13 +397,18 @@ Controllers.controller('materialdetailCtrl', ['$scope', '$state', '$stateParams'
                     });
 
                     if ($scope.value.userID.openid != $scope.userInfo.openid) {
-                        materialService.saveHistory({
+                        var historyTosave = {
                             material_id: $scope.value._id,
                             type: 'read',
                             userID: $scope.userInfo._id,
-                            sharedUser: $stateParams.uid
-                        }, function(data) {
-                            alert(data);
+                        };
+
+                        if ($stateParams && $stateParams.uid) {
+                            historyTosave['sharedUser'] = $stateParams.uid;
+                        }
+
+                        materialService.saveHistory(historyTosave, function(data) {
+                            // alert(data);
                             // alert("保存记录成功");
                         });
                     } else {
@@ -429,14 +438,17 @@ Controllers.controller('materialdetailCtrl', ['$scope', '$state', '$stateParams'
                             alert('用户点击发送给朋友');
                         },
                         success: function(res) {
-                            materialService.saveHistory({
-                                author_id: $scope.value.userID._id,
-                                material_id: $scope.value._id,
-                                type: 'shared',
-                                userID: $scope.userInfo._id
-                            }, function(data) {
-                                // alert("保存记录成功");
-                            });
+
+                            if (!$scope.isMine) {
+                                materialService.saveHistory({
+                                    author_id: $scope.value.userID._id,
+                                    material_id: $scope.value._id,
+                                    type: 'shared',
+                                    userID: $scope.userInfo._id
+                                }, function(data) {
+                                    // alert("保存记录成功");
+                                });
+                            }
                         },
                         cancel: function(res) {
                             materialService.saveHistory({
@@ -563,6 +575,48 @@ Controllers.controller('friendsmateriallistCtrl', ['$scope', 'AuthService', 'mat
         // user info
         $scope.$watch('userInfo', function(newInfo) {
             if (newInfo) {
+                materialService.getFriendsMaterialAll($scope.userInfo._id, function(data) {
+                    $scope.myMaterials = data;
+                });
+            }
+        });
+
+        AuthService.getAccessToken(function(data) {
+            $scope.commonToken = data.token;
+        });
+    }
+]);
+
+// 别人的素材列表
+Controllers.controller('othersmateriallistCtrl', ['$scope', 'AuthService', 'materialService', '$location',
+    function($scope, AuthService, materialService, $location) {
+        $scope.serverHost = serverHost;
+        $scope.pageTitle = "朋友的素材";
+        // 获取微信浏览器自动在URL里面添加的Code参数 
+        var code = getUrlParam('code');
+        // 获取当前URL
+        var url = $location.$$absUrl;
+
+        // localStorage.clear();
+        var userInfo = localStorage.getItem('localUserInfo');
+        // 判断缓存
+        if (!userInfo) {
+            // 根据Code从服务器获取用户信息
+            AuthService.getUserInfo(code, function(data) {
+                if (data) {
+                    $scope.userInfo = data;
+                    localStorage.setItem('localUserInfo', JSON.stringify(data));
+                } else {
+                    // 错误提示 跳转到微信验证页面
+                }
+            });
+        } else {
+            // alert('这个数据从缓存取的哟');
+            $scope.userInfo = JSON.parse(userInfo);
+        }
+        // user info
+        $scope.$watch('userInfo', function(newInfo) {
+            if (newInfo) {
                 materialService.get({
                     openid: $scope.userInfo.openid,
                     type: 'neq',
@@ -632,12 +686,17 @@ Controllers.controller('importmaterialCtrl', ['$scope', '$rootScope', '$sce', '$
 
                     // 判断是不是自己发布的
                     if ($scope.value.userID.openid != $scope.userInfo.openid) {
-                        materialService.saveHistory({
+                        var historyTosave = {
                             material_id: $scope.value._id,
                             type: 'read',
                             userID: $scope.userInfo._id,
-                            sharedUser: $stateParams.uid
-                        }, function(data) {
+                        };
+
+                        if ($stateParams && $stateParams.uid) {
+                            historyTosave['sharedUser'] = $stateParams.uid;
+                        }
+
+                        materialService.saveHistory(historyTosave, function(data) {
                             // alert(data);
                             // alert("保存记录成功");
                         });
@@ -668,32 +727,40 @@ Controllers.controller('importmaterialCtrl', ['$scope', '$rootScope', '$sce', '$
                             // alert('用户点击发送给朋友');
                         },
                         success: function(res) {
-                            materialService.saveHistory({
-                                sharedUser: $stateParams.uid,
-                                material_id: $scope.value._id,
-                                type: 'shared',
-                                userID: $scope.userInfo._id
-                            }, function(data) {
-                                alert("分享成功！");
-                            });
+                            if (!$scope.isMine) {
+                                materialService.saveHistory({
+                                    author_id: $stateParams.uid,
+                                    material_id: $scope.value._id,
+                                    type: 'shared',
+                                    userID: $scope.userInfo._id
+                                }, function(data) {
+                                    alert("分享成功！");
+                                });
+                            }
                         },
                         cancel: function(res) {
-                            materialService.saveHistory({
-                                material_id: $scope.value._id,
-                                type: 'cancelshared',
-                                userID: $scope.userInfo._id
-                            }, function(data) {
-                                // alert("保存记录成功");
-                            });
+                            if (!$scope.isMine) {
+                                materialService.saveHistory({
+                                    author_id: $stateParams.uid,
+                                    material_id: $scope.value._id,
+                                    type: 'sharecanceled',
+                                    userID: $scope.userInfo._id
+                                }, function(data) {
+                                    alert("取消分享！");
+                                });
+                            }
                         },
                         fail: function(res) {
-                            materialService.saveHistory({
-                                material_id: $scope.value._id,
-                                type: 'sharefiled',
-                                userID: $scope.userInfo._id
-                            }, function(data) {
-                                // alert("保存记录成功");
-                            });
+                            if (!$scope.isMine) {
+                                materialService.saveHistory({
+                                    author_id: $stateParams.uid,
+                                    material_id: $scope.value._id,
+                                    type: 'sharefield',
+                                    userID: $scope.userInfo._id
+                                }, function(data) {
+                                    alert("分享失败！");
+                                });
+                            }
                             alert(JSON.stringify(res));
                         }
                     };

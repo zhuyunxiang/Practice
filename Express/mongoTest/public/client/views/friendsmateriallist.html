@@ -5,11 +5,13 @@
 
 	<div class="list-container">
 		<ul class="action-list">
-			<li ui-sref="materialdetail({id:value._id})" class="action-item" ng-repeat="(key, value) in myMaterials" ng-if="!value.org_url">
+			<div ng-repeat="(key, value) in myMaterials">
+			<li ui-sref="materialdetail({id:value._id})" class="action-item" ng-if="!value.org_url">
 				<div>
 					<div class="img-panel">
-						<img src="http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={{commonToken}}&media_id={{value.serverId}}" ng-if="value.img_is_local!='local'" onerror="onerror=null;src='img/default_material.jpg'"/>
-						<img src="{{serverHost}}{{value.imgUrl}}" ng-if="value.img_is_local=='local'" onerror="onerror=null;src='img/default_material.jpg'"/>
+						<img src="img/default_material.jpg" ng-if="!value.serverId" />
+						<img ng-src="http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={{commonToken}}&media_id={{value.serverId}}" ng-if="value.img_is_local!='local'&&value.serverId"/ onerror="onerror=null;src='img/default_material.jpg'">
+						<img ng-src="{{serverHost}}{{value.imgUrl}}" onerror="onerror=null;src='img/default_material.jpg'" ng-if="value.img_is_local=='local'"/>
 					</div>
 					<div class="item-panel">
 						<div class="item-title">
@@ -26,25 +28,26 @@
 				</div>
 			</li>
 
-			<li ui-sref="importmaterial({id:value._id})" class="action-item" ng-repeat="(key, value) in myMaterials" ng-if="value.org_url">
-					<div>
-						<div class="img-panel">
-							<img src="img/default_material.jpg" ng-if="!value.serverId" onerror="onerror=null;src='img/default_material.jpg'"/>
+			<li ui-sref="importmaterial({id:value._id})" class="action-item" ng-if="value.org_url">
+				<div>
+					<div class="img-panel">
+						<img src="img/default_material.jpg" ng-if="!value.serverId" onerror="onerror=null;src='img/default_material.jpg'"/>
+					</div>
+					<div class="item-panel">
+						<div class="item-title">
+							<span ng-if="value.org_url">{{(value.title||'导入的数据')|limitTo:12}}</span>
 						</div>
-						<div class="item-panel">
-							<div class="item-title">
-								<span ng-if="value.org_url">{{(value.title||'导入的数据')|limitTo:12}}</span>
-							</div>
-							<div class="item-content">
-								<span ng-if="value.org_url">{{(value.brif||'导入的数据，请点击查看')|limitTo:18}}</span>
-							</div>
-						</div>
-						<div class="frind-info">
-							<a ui-sref="userdetail({openid:value.openid})">{{value.userID.nickname||'匿名'}}
-							</a> 
+						<div class="item-content">
+							<span ng-if="value.org_url">{{(value.brif||'导入的数据，请点击查看')|limitTo:18}}</span>
 						</div>
 					</div>
-				</li>
+					<div class="frind-info">
+						<a ui-sref="userdetail({openid:value.openid})">{{value.userID.nickname||'匿名'}}
+						</a> 
+					</div>
+				</div>
+			</li>
+			</div>
 		</ul>
 	</div>
 </div>

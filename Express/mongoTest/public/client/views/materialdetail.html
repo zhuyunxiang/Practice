@@ -11,7 +11,7 @@
 		<div class="publisher-info">
 			<a href="">{{value.userID.nickname||'匿名'}}</a> 发布
 		</div>
-		<div class="img-panel">
+		<div class="img-panel" ng-hide="value.img_is_local!='local'&&(!value.serverId)">
 			<img ng-src="{{imgUrl}}">
 		</div>
 		<div class="item-panel" ng-show="value.desc">
@@ -22,11 +22,10 @@
 	</div>
 	<div class="item-bottom" ng-if="(readHistory|getSum:'count')||value.custom_read_count">
 		<a ng-href="{{value.product_href}}" ng-show="value.product_href">查看产品</a>
-		<span>实际阅读数 {{readHistory|getSum:'count'}}</span>
-		<!-- <span ng-hide="value.custom_read_count">实际阅读数 {{value.read_count}}</span> -->
-		<span ng-show="value.custom_read_count">自定义阅读数 {{value.custom_read_count+(readHistory|getSum:'count')}}</span>
+		<span ng-hide="value.custom_read_count">阅读数 {{readHistory|getSum:'count'}}</span>
+		<span ng-show="value.custom_read_count">阅读数 {{value.custom_read_count+(readHistory|getSum:'count')}}</span>
 	</div>
-	<div>
+	<div ng-show="isMine">
 		<div ng-show="readHistory.length" class="history-title">总被浏览记录</div>
 		<div class="history-panel">
 			<div class="history-item" ng-repeat="(key, value) in readHistory">
@@ -37,7 +36,7 @@
 			</div>
 		</div>
 	</div>
-	<div>
+	<div ng-show="isMine">
 		<div ng-show="sharedHistory.length" class="history-title">总被分享记录</div>
 		<div class="history-panel">
 			<div class="history-item" ng-repeat="(key, value) in sharedHistory">
@@ -48,7 +47,7 @@
 			</div>
 		</div>
 	</div>
-	<div>
+	<div ng-show="isMine">
 		<div ng-show="myShareHistory.length" class="history-title">我的分享被浏览记录</div>
 		<div class="history-panel">
 			<div class="history-item" ng-repeat="(key, value) in myShareHistory">
@@ -59,7 +58,7 @@
 			</div>
 		</div>
 	</div>
-	<div>
+	<div ng-show="isMine">
 		<div ng-show="shareMyshared.length" class="history-title">帮我的分享记录</div>
 		<!-- <div>{{shareMyshared|json}}</div> -->
 		<div class="history-panel">

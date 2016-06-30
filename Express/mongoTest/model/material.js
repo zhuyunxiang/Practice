@@ -59,7 +59,6 @@ Material.get = function (params, callback) {
 
 // 更新素材信息
 Material.update = function (condition, model, callback) {
-    console.log(condition);
     if(condition['_id']){
         condition['_id'] = mongoose.Types.ObjectId(condition['_id']);
     }

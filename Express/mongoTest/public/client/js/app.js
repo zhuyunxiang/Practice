@@ -82,6 +82,15 @@ myApp.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
             },
             controller: 'friendsmateriallistCtrl'
         })
+        // 别人的素材列表
+        .state('othersmateriallist', {
+            url: '/othersmateriallist',
+            templateUrl: 'views/friendsmateriallist.html',
+            data: {
+                pageTitle: '别人的素材'
+            },
+            controller: 'othersmateriallistCtrl'
+        })
         // 关于(测试)
         .state('about', {
             url: '/about',

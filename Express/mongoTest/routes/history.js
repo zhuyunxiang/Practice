@@ -10,19 +10,35 @@ router.use(express.query());
 router.post('/', function(req, res, next) {
 	var dataTosave = req.body;
 	if (dataTosave.type == 'shared') {
+		
 		var friendInfo = {
 			self: dataTosave.author_id,
-			friendInfo: dataTosave.userID
+			friendInfo: dataTosave.userID,
+			type: 'beShared'
+		};
+
+		var sharefriendInfo = {
+			self: dataTosave.userID,
+			friendInfo: dataTosave.author_id,
+			type: 'share'
 		}
-		delete dataTosave.author_id;
 
 		friendService.get(friendInfo, function (err, result) {
-			if (result.length<=0) {
+			if (!result || result.length <= 0) {
 				friendService.add(friendInfo, function (fadderr, faddresult) {
 					// Do nothing
 				});
 			}
 		});
+
+		friendService.get(sharefriendInfo, function (err, result) {
+			if (!result || result.length <= 0) {
+				friendService.add(sharefriendInfo, function (fadderr, faddresult) {
+					// Do nothing
+				});
+			}
+		});
+		delete dataTosave.author_id;
 	}
 
 	historyService.add(dataTosave, function (err, result) {

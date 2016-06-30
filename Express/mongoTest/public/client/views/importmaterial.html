@@ -15,10 +15,10 @@
 		<div class="material-detail-container">
 			<div class="item-bottom">
 				<a ng-href="{{value.product_href}}" ng-show="value.product_href">查看产品</a>
-				<span ng-hide="value.custom_read_count">实际阅读数 {{readHistory|getSum:'count'}}</span>
-				<span ng-show="value.custom_read_count">自定义阅读数 {{value.custom_read_count+(readHistory|getSum:'count')}}</span>
+				<span ng-hide="value.custom_read_count">阅读数: {{readHistory|getSum:'count'}}</span>
+				<span ng-show="value.custom_read_count">阅读数: {{value.custom_read_count+(readHistory|getSum:'count')}}</span>
 			</div>
-			<div>
+			<div ng-show="isMine">
 				<div ng-show="readHistory.length" class="history-title">总被浏览记录</div>
 				<div class="history-panel">
 					<div class="history-item" ng-repeat="(key, value) in readHistory">
@@ -29,7 +29,7 @@
 					</div>
 				</div>
 			</div>
-			<div>
+			<div ng-show="isMine">
 				<div ng-show="myShareHistory.length" class="history-title">我的分享被浏览记录</div>
 				<div class="history-panel">
 					<div class="history-item" ng-repeat="(key, value) in myShareHistory">
@@ -40,7 +40,7 @@
 					</div>
 				</div>
 			</div>
-			<div>
+			<div ng-show="isMine">
 				<div ng-show="sharedHistory.length" class="history-title">总被分享记录</div>
 				<div class="history-panel">
 					<div class="history-item" ng-repeat="(key, value) in sharedHistory">
@@ -51,7 +51,7 @@
 					</div>
 				</div>
 			</div>
-			<div>
+			<div ng-show="isMine">
 				<div ng-show="shareMyshared.length" class="history-title">帮我的分享记录</div>
 				<!-- <div>{{shareMyshared|json}}</div> -->
 				<div class="history-panel">

@@ -34,7 +34,7 @@ Services.service('AuthService', ['$http', '$rootScope','BaseService',
         // 获取用户信息
         this.getUserInfo = function(code, callback) {
             var params = {
-                url:serverHost + '/wechatAPI/getUserInfo',
+                url:serverHost + '/wechat/getUserInfo',
                 params: $.param({code: code})
             };
 
@@ -55,7 +55,7 @@ Services.service('AuthService', ['$http', '$rootScope','BaseService',
             // 判断缓存
             if ((!userInfo)||timeLimit>86400||(!timestamp)) {
                 var params = {
-                    url:serverHost + '/wechatAPI/getUserInfo',
+                    url:serverHost + '/wechat/getUserInfo',
                     params: $.param({code: code})
                 };
 
@@ -80,7 +80,7 @@ Services.service('AuthService', ['$http', '$rootScope','BaseService',
         // 获取Token
         this.getAccessToken = function(callback) {
             var params = {
-                url:serverHost + '/wechatAPI/getAccessToken',
+                url:serverHost + '/wechat/getAccessToken',
                 params: {}
             };
 
@@ -90,7 +90,7 @@ Services.service('AuthService', ['$http', '$rootScope','BaseService',
         // 根据当前地址获取签名
         this.getTickets = function(url, callback) {
             var params = {
-                url:serverHost + '/wechatAPI/getTickets', 
+                url:serverHost + '/wechat/getTickets', 
                 params: $.param({url: url})
             };
 
@@ -100,7 +100,7 @@ Services.service('AuthService', ['$http', '$rootScope','BaseService',
         // 获取图片流
         this.getImgURL = function(serverId, callback) {
             var params = {
-                url: serverHost + '/wechatAPI/getImgURL',
+                url: serverHost + '/wechat/getImgURL',
                 params: $.param({serverId: serverId})
             };
 
@@ -130,6 +130,20 @@ Services.service('materialService', ['BaseService', function(BaseService){
         BaseService.request(params, callback);
     }
 
+    this.getFriendsMaterial = function (uid, callback) {
+        var params = {
+            url: serverHost + '/friend/limit/'+uid,
+        };
+        BaseService.request(params, callback, 'GET');
+    }
+
+    this.getFriendsMaterialAll = function (uid, callback) {
+        var params = {
+            url: serverHost + '/friend/all/'+uid,
+        };
+        BaseService.request(params, callback, 'GET');
+    }
+
     this.saveHistory = function (data, callback) {
         var params = {
             url: serverHost + '/history/',
@@ -150,7 +164,6 @@ Services.service('materialService', ['BaseService', function(BaseService){
 }]);
 
 // 用户信息Service
-
 Services.service('userService', ['BaseService', function(BaseService){
     this.get = function (condition, callback) {
         var params = {

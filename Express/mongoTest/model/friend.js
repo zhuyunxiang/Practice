@@ -21,7 +21,6 @@ Friend.prototype.save = function(callback) {
     var newFriend = new FriendModel(dataToSave);
     newFriend.save(function(err, data) {
         if (err) {
-            console.log(err);
             return callback(err);
         } else {
             callback(null, data);
@@ -36,10 +35,34 @@ Friend.get = function (params, callback) {
     if (params && params['friendInfo']) {
         params['friendInfo'] = mongoose.Types.ObjectId(params['friendInfo']);
     }
+    if (params && params['self']) {
+        params['self'] = mongoose.Types.ObjectId(params['self']);
+    }
 
     FriendModel.find(params)
     .sort({'_id': -1})
     .populate(['friendInfo'])
+    .exec(function (err, user) {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, user);
+    });
+}
+
+Friend.getBase = function (params, callback) {
+    if (params && params['self']) {
+        params['self'] = mongoose.Types.ObjectId(params['self']);
+    }
+    if (params && params['friendInfo']) {
+        params['friendInfo'] = mongoose.Types.ObjectId(params['friendInfo']);
+    }
+    if (params && params['self']) {
+        params['self'] = mongoose.Types.ObjectId(params['self']);
+    }
+
+    FriendModel.find(params)
+    .sort({'_id': -1})
     .exec(function (err, user) {
         if (err) {
             return callback(err);

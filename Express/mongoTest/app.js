@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var wechatAPI = require('./routes/wechatAPI');
+var wechat = require('./routes/wechat');
 var material = require('./routes/material');
 var history = require('./routes/history');
 var friend = require('./routes/friend');
@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/wechatAPI', wechatAPI);
+app.use('/wechat', wechat);
 app.use('/history', history);
 app.use('/friend', friend);
 app.use('/material', material);

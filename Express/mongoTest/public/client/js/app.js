@@ -4,8 +4,7 @@ var Controllers = angular.module('Controllers', []);
 var Services = angular.module('Services', []);
 var Directives = angular.module('Directives', []);
 var Filters = angular.module('Filters', []);
-var serverHost = "http://zhuyunxiang.com/share";
-var clientHost = "http://zhuyunxiang.com/share_client_angular";
+
 // 配置路由
 myApp.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     $urlRouterProvider.otherwise('/handler');
@@ -146,6 +145,6 @@ function isWeiXin(){
 }
 
 if (!isWeiXin()) {
-    alert("qinyongweixindakai");
-    // window.location.href = "http://www.baidu.com";
+    alert("对不起，请使用微信打开！");
+    window.location.href = serverHost;
 }

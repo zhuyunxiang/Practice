@@ -65,7 +65,6 @@ Services.service('AuthService', ['$http', '$rootScope','BaseService',
                         localStorage.setItem('timestamp', nowTimestamp);
                         this.userInfo = data;
                     }
-                    alert("更新一次个人数据");
                     callback(data);
                 });
             } else {

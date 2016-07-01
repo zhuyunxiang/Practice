@@ -363,7 +363,7 @@ Controllers.controller('materialdetailCtrl', ['$scope', '$state', '$stateParams'
                         } else {
                             $scope.imgUrl = serverHost + $scope.value.imgUrl;
                         }
-
+                        wxready();
                     });
 
                     materialService.getHistory({
@@ -415,7 +415,6 @@ Controllers.controller('materialdetailCtrl', ['$scope', '$state', '$stateParams'
                         // 查看自己的素材
                         $scope.isMine = true;
                     }
-                    wxready();
                 });
             }
         }
@@ -429,13 +428,13 @@ Controllers.controller('materialdetailCtrl', ['$scope', '$state', '$stateParams'
                         var imgUrl = serverHost + $scope.value.imgUrl;
                     }
                     var shareData = {
-                        title: "Share:" + $scope.value.title,
+                        title: $scope.value.title,
                         desc: $scope.value.brif,
-                        link: serverHost + "/wechatAPI/redirect?url=" + clientHost + "/index.html?s=materialdetail&aid=" + $stateParams.id + "&uid=" + $scope.userInfo._id,
+                        link: serverHost + "/wechat/redirect?url=" + clientHost + "/index.html?s=materialdetail&aid=" + $stateParams.id + "&uid=" + $scope.userInfo._id,
                         imgUrl: imgUrl,
                         trigger: function(res) {
                             // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-                            alert('用户点击发送给朋友');
+                            // alert('用户点击发送给朋友');
                         },
                         success: function(res) {
 
@@ -505,7 +504,7 @@ Controllers.controller('userdetailCtrl', ['$scope', '$stateParams', 'userService
 Controllers.controller('mymateriallistCtrl', ['$scope', 'AuthService', 'materialService', '$location',
     function($scope, AuthService, materialService, $location) {
         $scope.serverHost = serverHost;
-        $scope.pageTitle = "我的素材";
+        $scope.pageTitle = "我的素材列表";
         // 获取微信浏览器自动在URL里面添加的Code参数 
         var code = getUrlParam('code');
         // 获取当前URL
@@ -549,7 +548,7 @@ Controllers.controller('mymateriallistCtrl', ['$scope', 'AuthService', 'material
 Controllers.controller('friendsmateriallistCtrl', ['$scope', 'AuthService', 'materialService', '$location',
     function($scope, AuthService, materialService, $location) {
         $scope.serverHost = serverHost;
-        $scope.pageTitle = "朋友的素材";
+        $scope.pageTitle = "朋友的素材列表";
         // 获取微信浏览器自动在URL里面添加的Code参数 
         var code = getUrlParam('code');
         // 获取当前URL
@@ -591,7 +590,7 @@ Controllers.controller('friendsmateriallistCtrl', ['$scope', 'AuthService', 'mat
 Controllers.controller('othersmateriallistCtrl', ['$scope', 'AuthService', 'materialService', '$location',
     function($scope, AuthService, materialService, $location) {
         $scope.serverHost = serverHost;
-        $scope.pageTitle = "朋友的素材";
+        $scope.pageTitle = "别人的素材列表";
         // 获取微信浏览器自动在URL里面添加的Code参数 
         var code = getUrlParam('code');
         // 获取当前URL
@@ -718,9 +717,9 @@ Controllers.controller('importmaterialCtrl', ['$scope', '$rootScope', '$sce', '$
                         var imgUrl = ($scope.value && $scope.value.imgUrl) ? (serverHost + $scope.value.imgUrl) : (clientHost + '/img/default_material.jpg');
                     }
                     var shareData = {
-                        title: "Share:" + $scope.value.title,
+                        title: $scope.value.title,
                         desc: $scope.value.brif,
-                        link: serverHost + "/wechatAPI/redirect?url=" + clientHost + "/index.html?s=importmaterial&aid=" + $stateParams.id + "&uid=" + $scope.userInfo._id,
+                        link: serverHost + "/wechat/redirect?url=" + clientHost + "/index.html?s=importmaterial&aid=" + $stateParams.id + "&uid=" + $scope.userInfo._id,
                         imgUrl: imgUrl,
                         trigger: function(res) {
                             // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回

@@ -5,14 +5,12 @@ var userService = require('../service/userService');
 // 根据openid获取用户信息
 router.get('/:openid', function(req, res, next) {
     userService.getOne({openid: req.params.openid}, function (err, result) {
-        console.log(result);
         res.json(result);
     });
     if (req.params.openid) {
         
     } else {
         userService.get({}, function (err, result) {
-            console.log(result);
             res.json(result);
         });
     }
@@ -21,7 +19,6 @@ router.get('/:openid', function(req, res, next) {
 // 获取用户信息
 router.get('/', function(req, res, next) {
     userService.get({}, function (err, result) {
-        console.log(result);
         res.json(result);
     });
 });
@@ -29,7 +26,6 @@ router.get('/', function(req, res, next) {
 // 添加个人信息
 router.use('/add', function(req, res, next) {
     userService.get({}, function (err, result) {
-        console.log(result);
         res.json(result);
     });
 });

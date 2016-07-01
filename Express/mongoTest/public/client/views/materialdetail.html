@@ -29,7 +29,7 @@
 		<div ng-show="readHistory.length" class="history-title">总被浏览记录</div>
 		<div class="history-panel">
 			<div class="history-item" ng-repeat="(key, value) in readHistory">
-				<span class="head-img-panel"><img src="{{value.userID.headimgurl}}"></span>
+				<span class="head-img-panel"><img ng-src="{{value.userID.headimgurl}}"></span>
 				<span class="name-span">{{value.userID.nickname||'匿名'}}</span>
 				<span class="view-history-span">{{value.count}}次</span>
 				<span>{{value.time|date:'yyyy-MM-dd HH:mm:ss'}}</span>
@@ -40,7 +40,7 @@
 		<div ng-show="sharedHistory.length" class="history-title">总被分享记录</div>
 		<div class="history-panel">
 			<div class="history-item" ng-repeat="(key, value) in sharedHistory">
-				<span class="head-img-panel"><img src="{{value.userID.headimgurl}}"></span>
+				<span class="head-img-panel"><img ng-src="{{value.userID.headimgurl}}"></span>
 				<span class="name-span">{{value.userID.nickname||'匿名'}}</span>
 				<span class="view-history-span">{{value.count}}次</span>
 				<span>{{value.time|date:'yyyy-MM-dd HH:mm:ss'}}</span>
@@ -51,7 +51,7 @@
 		<div ng-show="myShareHistory.length" class="history-title">我的分享被浏览记录</div>
 		<div class="history-panel">
 			<div class="history-item" ng-repeat="(key, value) in myShareHistory">
-				<span class="head-img-panel"><img src="{{value.userID.headimgurl}}"></span>
+				<span class="head-img-panel"><img ng-src="{{value.userID.headimgurl}}"></span>
 				<span class="name-span">{{value.userID.nickname||'匿名'}}</span>
 				<span class="view-history-span">{{value.count}}次</span>
 				<span>{{value.time|date:'yyyy-MM-dd HH:mm:ss'}}</span>
@@ -63,7 +63,7 @@
 		<!-- <div>{{shareMyshared|json}}</div> -->
 		<div class="history-panel">
 			<div class="history-item" ng-repeat="(key, value) in shareMyshared">
-				<span class="head-img-panel"><img src="{{value.userID.headimgurl}}"></span>
+				<span class="head-img-panel"><img ng-src="{{value.userID.headimgurl}}"></span>
 				<span class="name-span">{{value.userID.nickname||'匿名'}}</span>
 				<span class="view-history-span">{{value.count}}次</span>
 				<span>{{value.time|date:'yyyy-MM-dd HH:mm:ss'}}</span>

@@ -80,8 +80,6 @@ History.groupCount = function(condition, callback) {
         condition.sharedUser = mongoose.Types.ObjectId(condition.sharedUser);
     }
 
-    console.log(condition);
-
     HistoryModel.aggregate([{
         $project: {
             material_id: 1,

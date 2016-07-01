@@ -5,8 +5,8 @@ var scheduleService = {
 	dayTask : function () {
 		var rule = new schedule.RecurrenceRule();
 		rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-		rule.hour = 22;
-		rule.minute = 42;
+		rule.hour = 16;
+		rule.minute = 00;
 		var j = schedule.scheduleJob(rule, function(){
 	　　　　console.log("执行任务");
 	　　});
@@ -15,8 +15,8 @@ var scheduleService = {
 	execEveryNight: function (callback) {
 		var rule = new schedule.RecurrenceRule();
 		rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-		rule.hour = 2;
-		rule.minute = 0;
+		rule.hour = 12;
+		rule.minute = 16;
 		var j = schedule.scheduleJob(rule, callback);
 	},
 
